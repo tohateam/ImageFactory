@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- useful strings -->
+    <string name="app_name">Image Factory</string>
+    <string name="are_you_sure_you_want_to_do_this">Are you sure you want to do this?</string>
+    <string name="operation_failed">Operation Failed</string>
+    <string name="no_root_access_given">No Root Access Given</string>
+    <string name="select_file">Select File</string>
+    <string name="perform_task">Perform Task</string>
+    <string name="succeed">Successful</string>
+    <string name="failed">Failure</string>
+    <string name="loading">Loading...</string>
+    <string name="output_filename_cannot_be_empty">Output filename cannot be empty</string>
+    <string name="cannot_find_the_necessary_files">Cannot find the necessary files</string>
+    <string name="input_filename_cannot_be_empty">Input filename cannot be empty</string>
+    <string name="press_again_to_exit">Press again to exit</string>
+    <!-- APP's or not useful strings -->
+    <string name="drawer_open">Drawer Opening</string>
+    <string name="drawer_close">Drawer Closing</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- main page tabs strings -->
+    <string name="function_boot_image">Boot Image</string>
+    <string name="function_firmware_tool">Firmware Tool</string>
+    <string name="function_convert_image">Convert Image</string>
+    <!-- operate boot images strings -->
+    <string name="operate_boot_image">OPERATE BOOT IMAGE</string>
+    <string name="operate_unpack_boot_image_key" translatable="false">operate_unpack_boot_image_key</string>
+    <string name="operate_unpack_boot_image_summary">Unpack a boot image file to output directory</string>
+    <string name="operate_unpack_boot_image_title">Unpack Boot Image</string>
+    <string name="unpack_boot_image_source_file_path">Boot image source file path</string>
+    <string name="checking_boot_image_file">Checking boot image file : \'%s\'...</string>
+    <string name="generating_output_directory">Generating output directory : \'%s\'...</string>
+    <string name="unpacking_boot_image">Unpacking boot image : \'%s\'...</string>
+    <string name="repacking_boot_image">Repacking boot image : \'%s\'...</string>
+    <string name="unpacked_to_directory">Unpacked to directory : \'%s\'</string>
+    <string name="unpacked_ramdisk_to_directory">Unpacked ramdisk to directory : \'%s\'</string>
+    <string name="output_directory_already_exists">Output directory already exists</string>
+    <string name="output_directory_cannot_be_empty">Output directory name cannot be empty</string>
+    <string name="source_file_cannot_be_empty">Source file cannot be empty</string>
+    <string name="source_file_not_exists">Source file not existent</string>
+    <string name="browse_output_directory">Browse output directory</string>
+    <string name="unpack_boot_image_output_directory_name">Unpacked boot image output directory name</string>
+    <string name="operate_repack_boot_image_key" translatable="false">operate_repack_boot_image_key</string>
+    <string name="operate_repack_boot_image_summary">Repack boot image from output directory</string>
+    <string name="operate_repack_boot_image_title">Repack Boot Image</string>
+    <string name="port_boot_image">PORT BOOT IMAGE</string>
+    <string name="port_boot_image_key" translatable="false">port_boot_image_common_key</string>
+    <string name="port_boot_image_summary">Port boot image from a sample boot image</string>
+    <string name="port_boot_image_title">Port Boot Image</string>
+    <string name="port_base">Choose a base boot image</string>
+    <string name="port_sample">Choose a sample boot image</string>
+    <string name="porting">Porting...</string>
+    <string name="repacking_failed">Repacking failed</string>
+    <string name="repacked_to_file">Repacked to file \'%s\'</string>
+    <string name="checking_files">Checking files...\n</string>
+    <string name="repacking_to_file">Repacking to \'%s\'...</string>
+    <string name="repack_boot_image_output_file_name">Repacked output boot image file name</string>
+    <string name="choose_an_unpack_directory">Choose an unpacked directory</string>
+    <string name="unpacking">Unpacking...</string>
+    <string name="unpacking_ramdisk_cpio_gz">Unpacking ramdisk.cpio.gz : \'%s\'...</string>
+    <string name="unpacking_ramdisk_cpio">Unpacking ramdisk.cpio : \'%s\'...</string>
+    <string name="repacking_ramdisk_cpio">Repacking ramdisk.cpio : \'%s\'...</string>
+    <string name="packing">Packing...</string>
+    <string name="repacking_ramdisk_cpio_gz">Repacking ramdisk.cpio.gz : \'%s\'...</string>
+    <string name="repacking">Repacking...</string>
+    <!-- flash or back up boot images strings -->
+    <string name="flash_or_backup_boot_image">FLASH OR BACKUP BOOT IMAGE</string>
+    <string name="flash_boot_image_key" translatable="false">flash_boot_image_key</string>
+    <string name="flash_boot_image_summary">Flash boot image from a file</string>
+    <string name="flash_boot_image_title">Flash Boot Image</string>
+    <string name="backup_boot_image_key" translatable="false">backup_boot_image_key</string>
+    <string name="backup_boot_image_summary">Backup boot image to a file</string>
+    <string name="backup_boot_image_title">Backup Boot Image</string>
+    <string name="backuping">Backuping...</string>
+    <string name="backup_success">Backuping Successful</string>
+    <string name="backuped_to_file">Backuped to file \'%s\'</string>
+    <string name="backup_type">Backuping partition type</string>
+    <string name="backup_parttition_path">Backuping partition path</string>
+    <string name="backuped_name">Backuped file name</string>
+    <string name="flash_name">File used for flashing</string>
+    <string name="flash_partition_type">Flashing partition type</string>
+    <string name="flash_parttion">Target partition</string>
+    <string name="flashing">Flashing...</string>
+    <string name="flashed_file_from">Flashed file from : \'%s\'</string>
+    <string name="cannot_found_partition">Cannot found this partition</string>
+    <!-- convert images strings -->
+    <string name="simg2img_select">Used for convert sparse image path</string>
+    <string name="simg2img_output">Set converted raw image output name</string>
+    <string name="sdat2img_transfer_list">Used for convert：system.transfer.list</string>
+    <string name="sdat2img_select_transfer_list">Select system.transfer.list</string>
+    <string name="sdat2img_sysdat_image">Used for convert：system.new.dat</string>
+    <string name="sdat2img_select_sysdat_image">Select system.new.dat</string>
+    <string name="sdat2img_output">Converted image output name</string>
+    <string name="img2simg_select">Used for convert raw image file</string>
+    <string name="img2simg_output">Set converted sparse image file</string>
+    <string name="sparse_image">Sparse Image</string>
+    <string name="converting">Converting</string>
+    <string name="converted_to_file">Converted to file \'%s\'</string>
+    <string name="raw_image">Raw Image</string>
+    <string name="image_type">Image Type</string>
+    <!-- firmware tools strings -->
+    <string name="firmware_output_path">Set extracted firmware output directory name</string>
+    <string name="firmware_type">Firmware Type</string>
+    <string name="firmware_file_path">Used for decompress firmware file path</string>
+    <string name="extracted_to_directory">Extracted to directory : \'%s\'</string>
+    <string name="extracting">Extracting...</string>
+    <!-- reboot utils strings -->
+    <string name="reboot_normal_title">Reboot</string>
+    <string name="reboot_recovery_title">Reboot Recovery</string>
+    <string name="reboot_bootloader_title">Reboot Bootloader</string>
+    <string name="reboot_hot_title">Hot Reboot</string>
+    <string name="reboot_shutdown_title">Shutdown</string>
+    <!-- menu strings -->
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
+    <!-- File Chooser strings -->
+    <string name="no_permission_to_access">No permission to access!</string>
+    <string name="upper_path">Upper Directory</string>
+    <string name="browse">Browse</string>
+    <string name="custom_your_images">CUSTOM YOUR IMAGES</string>
+    <!-- setting strings -->
+    <string name="setting_data_path_key" translatable="false">data_path</string>
+    <string name="setting_data_path_title">Data Path</string>
+    <string name="setting_data_path_summary">Application output directory, most of the data exists here</string>
+    <string name="setting_clean_data_key" translatable="false">setting_clean_data_key</string>
+    <string name="setting_clean_data_summary">Clean all data on this application</string>
+    <string name="setting_clean_data_title">Clean Data</string>
+    <string name="new_version">New Version</string>
+    <string name="update">Update</string>
+    <string name="permission_not_granted">Permission not granted</string>
+    <string name="getting_device_information">Getting Device Information...</string>
+    <string name="maybe_this_function_unsupported_your_device">Maybe this function unsupported your device</string>
+    <string name="logcat">Logcat</string>
+    <string name="browse_home_page">Browse Home Page</string>
+    <string name="i_agree">I agree</string>
+    <string name="disclaimer_content">Please read the following terms\n\n1. This software is freeware, no charge to the user, all free to use all the features of.\n2. All the consequences resulting from the use of this software, I shall not be responsible for that.\n3. The software for non-commercial software, do not use commercial and illegal purposes.\n4. Can not reverse engineer, or create derivative works based upon the software (the QQ group active code).\n5. Crixec owns all intellectual property rights of the software. This software is not for sale, only for licensed use.\n6. Enter the software you agree to all the terms.\n</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="change_log">Change Log</string>
+
+</resources>
+
+

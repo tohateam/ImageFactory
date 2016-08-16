@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="convert_image_items">
+        <item>Sparse Image To Raw Image</item>
+        <item>Raw Image To Sparse Image</item>
+        <item>Converting System.new.dat</item>
+    </string-array>
+    <string-array name="firmware_tool_items">
+        <item>Huawei Firmware *.APP</item>
+        <item>Coolpad Firmware *.CPB</item>
+    </string-array>
+    <string-array name="partition_type">
+        <item>Boot</item>
+        <item>Recovery</item>
+    </string-array>
+</resources>

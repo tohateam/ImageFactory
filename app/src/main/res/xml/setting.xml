@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:id="@+id/data_path"
+        android:key="@string/setting_data_path_key"
+        android:summary="@string/setting_data_path_summary"
+        android:title="@string/setting_data_path_title" />
+    <PreferenceScreen
+        android:key="@string/setting_clean_data_key"
+        android:summary="@string/setting_clean_data_summary"
+        android:title="@string/setting_clean_data_title" />
+</PreferenceScreen>  
+	

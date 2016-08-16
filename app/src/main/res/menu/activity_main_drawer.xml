@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/reboot_utils">
+        <item
+            android:id="@+id/reboot_normal"
+            android:title="@string/reboot_normal_title" />
+        <item
+            android:id="@+id/reboot_recovery"
+            android:title="@string/reboot_recovery_title" />
+        <item
+            android:id="@+id/reboot_bootloader"
+            android:title="@string/reboot_bootloader_title" />
+        <item
+            android:id="@+id/reboot_hot"
+            android:title="@string/reboot_hot_title" />
+        <item
+            android:id="@+id/reboot_shutdown"
+            android:title="@string/reboot_shutdown_title" />
+    </group>
+    <group
+        android:id="@+id/personal_items"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/drawer_logcat"
+            android:icon="@drawable/ic_logcat"
+            android:title="@string/logcat" />
+        <item
+            android:id="@+id/drawer_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/setting" />
+        <item
+            android:id="@+id/drawer_about"
+            android:icon="@drawable/ic_about"
+            android:title="@string/about" />
+    </group>
+</menu>

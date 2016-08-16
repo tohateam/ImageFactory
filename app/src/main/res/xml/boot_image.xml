@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/operate_boot_image">
+        <PreferenceScreen
+            android:key="@string/operate_unpack_boot_image_key"
+            android:summary="@string/operate_unpack_boot_image_summary"
+            android:title="@string/operate_unpack_boot_image_title" />
+        <PreferenceScreen
+            android:key="@string/operate_repack_boot_image_key"
+            android:summary="@string/operate_repack_boot_image_summary"
+            android:title="@string/operate_repack_boot_image_title" />
+        <PreferenceScreen
+            android:key="@string/port_boot_image_key"
+            android:summary="@string/port_boot_image_summary"
+            android:title="@string/port_boot_image_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/flash_or_backup_boot_image">
+        <PreferenceScreen
+            android:key="@string/flash_boot_image_key"
+            android:summary="@string/flash_boot_image_summary"
+            android:title="@string/flash_boot_image_title" />
+        <PreferenceScreen
+            android:key="@string/backup_boot_image_key"
+            android:summary="@string/backup_boot_image_summary"
+            android:title="@string/backup_boot_image_title" />
+    </PreferenceCategory>
+</PreferenceScreen>
