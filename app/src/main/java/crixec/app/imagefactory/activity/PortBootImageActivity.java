@@ -12,10 +12,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,10 +19,10 @@ import java.util.ArrayList;
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.Debug;
 import crixec.app.imagefactory.core.ImageFactory;
+import crixec.app.imagefactory.core.Invoker;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
-import crixec.app.imagefactory.core.Invoker;
 
 /**
  * Created by crixec on 2016/8/3.
@@ -69,9 +65,6 @@ public class PortBootImageActivity extends BaseChildActivity implements TextWatc
         });
         outfile.getEditText().setText("");
         new LoadUnpacked().execute();
-        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
-        adLayout.addView(adView);
     }
 
     @Override
@@ -180,7 +173,6 @@ public class PortBootImageActivity extends BaseChildActivity implements TextWatc
                         .setNegativeButton(android.R.string.no, null)
                         .setCancelable(false)
                         .show();
-                ImageFactory.show(PortBootImageActivity.this);
             } else {
                 Toast.makeShortText(getString(R.string.operation_failed));
             }
@@ -217,10 +209,7 @@ public class PortBootImageActivity extends BaseChildActivity implements TextWatc
                 return false;
             }
             Debug.i(TAG, "compress ramdisk.cpio.gz successful");
-            if (!Invoker.mkbootimg(files[0], files[1], ramdiskCpioGz, files[2], files[5], files[6])) {
-                return false;
-            }
-            return true;
+            return Invoker.mkbootimg(files[0], files[1], ramdiskCpioGz, files[2], files[5], files[6]);
 
         }
 

@@ -5,14 +5,11 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
-import crixec.app.imagefactory.core.ExceptionHandler;
 
 public class FileUtils {
 
@@ -34,13 +31,13 @@ public class FileUtils {
                 str.append("\n" + line);
             }
         } catch (Exception e) {
-            ExceptionHandler.handle(e);
+            throw new RuntimeException(e);
         } finally {
             try {
                 br.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return str;

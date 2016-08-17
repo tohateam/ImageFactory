@@ -119,9 +119,6 @@
     <string name="setting_data_path_summary">程序的输出目录，大多数数据存在这里</string>
     <string name="setting_clean_data_summary">清除这个应用程序的所有数据</string>
     <string name="setting_clean_data_title">清除数据</string>
-    <string name="new_version">新版本</string>
-    <string name="update">更新</string>
-    <string name="permission_not_granted">未获取到权限</string>
     <string name="getting_device_information">正在获取设备信息。。。</string>
     <string name="maybe_this_function_unsupported_your_device">似乎这个功能不支持你的设备</string>
     <string name="browse_home_page">浏览主页</string>
@@ -130,7 +127,8 @@
     <string name="disclaimer_content">请仔细阅读以下条款\n\n1、此软件为免费软件，不会向用户收取任何费用，所有功能全部免费使用\n2、使用本软件对您的设备造成的一切后果本人概不负责\n3、软件非商业软件，请勿用于商业及非法用途\n4、不能进行逆向工程，或基于本软件创作衍生作品（群里有源代码）\n5、Crixec 拥有本软件的所有知识产权。本软件乃非卖品，只供许可使用。\n6、进入本软件即代表你同意所有条款\n
     </string>
     <string name="disclaimer">用户许可</string>
-    <string name="change_log">更新日志</string>
+    <string name="warning">警告</string>
+    <string name="no_write_external_storage_permission">没有获取到操作存储空间的权限，程序不能运行，点击确定退出！</string>
 </resources>
 
 

@@ -2,7 +2,6 @@ package crixec.app.imagefactory.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
@@ -23,18 +22,11 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import net.youmi.android.AdManager;
-import net.youmi.android.spot.SpotManager;
-import net.youmi.android.update.AppUpdateInfo;
-import net.youmi.android.update.CheckAppUpdateCallBack;
-
 import java.util.ArrayList;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.adapter.MainPageAdapter;
 import crixec.app.imagefactory.core.Constant;
-import crixec.app.imagefactory.core.Debug;
-import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.function.bootimage.BootImageFragment;
 import crixec.app.imagefactory.function.convertimage.ConvertImageFragment;
 import crixec.app.imagefactory.function.firmware.FirmwareFragment;
@@ -44,7 +36,7 @@ import crixec.app.imagefactory.util.Toolbox;
 import crixec.app.imagefactory.util.XmlDataUtils;
 import crixec.app.imagefactory.util.loader.ChangeLogLoader;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, CheckAppUpdateCallBack {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -90,16 +82,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dialog.cancel();
                     finish();
                 }
             });
             dialog.show();
         }
-        AdManager.getInstance(this).init("a4653a97a318b88c", "5b139d6b2fc594e0", false);
-        AdManager.getInstance(this).setEnableDebugLog(false);
-        SpotManager.getInstance(this).loadSpotAds();
-        AdManager.getInstance(this).asyncCheckAppUpdate(this);
-        ImageFactory.show(this);
     }
 
     private void initContainer() {
@@ -243,27 +231,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCheckAppUpdateFinish(final AppUpdateInfo updateInfo) {
-        if (updateInfo == null || updateInfo.getUrl() == null) {
-        } else {
-            Debug.i(TAG, "new version found");
-            Dialog.create(this).setTitle(getString(R.string.new_version))
-                    .setMessage(updateInfo.getUpdateTips())
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateInfo.getUrl()));
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
-        }
     }
 
 }

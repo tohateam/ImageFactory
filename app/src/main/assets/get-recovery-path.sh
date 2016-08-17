@@ -29,6 +29,7 @@ recovery_list=(
 /dev/block/nandg
 /dev/block/acta
 /dev/recovery
+/dev/block/platform/dw_mmc.0/by-name/RECOVERY
 )
 for path in ${recovery_list[@]};do
 	if [[ -e "$path" ]];then

@@ -9,10 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
 
 import crixec.app.imagefactory.R;
 
@@ -63,9 +59,6 @@ public class ConvertImageFragment extends Fragment {
                 // TODO: Implement this method
             }
         });
-        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
-        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
-        adLayout.addView(adView);
         return rootView;
     }
 

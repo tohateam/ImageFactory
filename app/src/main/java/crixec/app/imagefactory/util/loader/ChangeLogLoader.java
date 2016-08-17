@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-import crixec.app.imagefactory.core.ExceptionHandler;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.util.FileUtils;
 
@@ -32,7 +31,7 @@ public class ChangeLogLoader extends AsyncTask<Void, Void, StringBuilder> {
         try {
             sb.append(FileUtils.readInputStream(ImageFactory.getApp().getAssets().open("changelog.txt")));
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            throw new RuntimeException(e);
         }
         return sb;
     }

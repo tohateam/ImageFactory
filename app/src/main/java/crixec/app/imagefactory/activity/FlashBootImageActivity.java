@@ -13,19 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-import net.youmi.android.spot.SpotManager;
 
 import java.io.File;
 
 import crixec.app.imagefactory.R;
-import crixec.app.imagefactory.core.ImageFactory;
-import crixec.app.imagefactory.function.bootimage.Device;
 import crixec.app.imagefactory.function.bootimage.DeviceGetter;
-import crixec.app.imagefactory.function.bootimage.DeviceManager;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.Toast;
@@ -97,9 +89,6 @@ public class FlashBootImageActivity extends BaseChildActivity implements TextWat
                 new DoFlash(new File(etBootimg.getEditText().getText().toString()), new File(etTarget.getEditText().getText().toString())).execute();
             }
         });
-        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
-        adLayout.addView(adView);
     }
 
     @Override
@@ -181,7 +170,6 @@ public class FlashBootImageActivity extends BaseChildActivity implements TextWat
                         .setMessage(String.format(getString(R.string.flashed_file_from), file.getPath()))
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
-                ImageFactory.show(FlashBootImageActivity.this);
             } else {
                 Toast.makeShortText(getString(R.string.operation_failed));
             }

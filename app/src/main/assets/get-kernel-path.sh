@@ -20,6 +20,7 @@ kernel_list=(
 /dev/block/nandc
 /dev/bootimg
 /dev/boot
+/dev/block/platform/dw_mmc.0/by-name/BOOT
 )
 for path in ${kernel_list[@]};do
 	if [[ -e "$path" ]];then

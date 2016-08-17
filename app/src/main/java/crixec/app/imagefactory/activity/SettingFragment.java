@@ -11,6 +11,7 @@ import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.ShellUtils;
+import crixec.app.imagefactory.util.Toolbox;
 import crixec.app.imagefactory.util.XmlDataUtils;
 
 /**
@@ -35,7 +36,7 @@ public class SettingFragment extends PreferenceFragment {
                                 // TODO: Implement this method
                                 XmlDataUtils.remove(getString(R.string.setting_data_path_key));
                                 try {
-                                    ShellUtils.exec(String.format("toolbox rm -r \'%s\' \'%s\' \'%s\'", ImageFactory.DATA_PATH.getPath(), ImageFactory.getApp().getFilesDir().getPath(), ImageFactory.getApp().getApplicationInfo().nativeLibraryDir));
+                                    ShellUtils.exec(String.format("%s rm -r \'%s\' \'%s\' \'%s\'", Toolbox.getToolbox(), ImageFactory.DATA_PATH.getPath(), ImageFactory.getApp().getFilesDir().getPath(), ImageFactory.getApp().getApplicationInfo().nativeLibraryDir));
                                     android.os.Process.killProcess(Process.myPid());
                                 } catch (Exception e) {
                                     Toast.makeShortText(getString(R.string.operation_failed));

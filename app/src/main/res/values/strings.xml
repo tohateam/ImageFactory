@@ -126,9 +126,6 @@
     <string name="setting_clean_data_key" translatable="false">setting_clean_data_key</string>
     <string name="setting_clean_data_summary">Clean all data on this application</string>
     <string name="setting_clean_data_title">Clean Data</string>
-    <string name="new_version">New Version</string>
-    <string name="update">Update</string>
-    <string name="permission_not_granted">Permission not granted</string>
     <string name="getting_device_information">Getting Device Information...</string>
     <string name="maybe_this_function_unsupported_your_device">Maybe this function unsupported your device</string>
     <string name="logcat">Logcat</string>
@@ -137,6 +134,8 @@
     <string name="disclaimer_content">Please read the following terms\n\n1. This software is freeware, no charge to the user, all free to use all the features of.\n2. All the consequences resulting from the use of this software, I shall not be responsible for that.\n3. The software for non-commercial software, do not use commercial and illegal purposes.\n4. Can not reverse engineer, or create derivative works based upon the software (the QQ group active code).\n5. Crixec owns all intellectual property rights of the software. This software is not for sale, only for licensed use.\n6. Enter the software you agree to all the terms.\n</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="change_log">Change Log</string>
+    <string name="warning">Warning</string>
+    <string name="no_write_external_storage_permission">Can not get permission to operate the storage space, the program can not run, click OK to exit!</string>
 
 </resources>
 

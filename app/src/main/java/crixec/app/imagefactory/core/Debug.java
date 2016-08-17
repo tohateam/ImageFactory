@@ -2,7 +2,6 @@ package crixec.app.imagefactory.core;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +28,7 @@ public class Debug {
             fw.write("App started at : " + DeviceUtils.getSystemTime() + "\n");
             fw.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -57,7 +56,7 @@ public class Debug {
                 fw.write(TAG + ": " + text + "\n");
                 fw.flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -69,7 +68,7 @@ public class Debug {
             sb.append(FileUtils.readInputStream(fis));
             fis.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return sb;
     }

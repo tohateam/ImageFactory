@@ -14,19 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-import net.youmi.android.spot.SpotManager;
 
 import java.io.File;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.ImageFactory;
-import crixec.app.imagefactory.function.bootimage.Device;
 import crixec.app.imagefactory.function.bootimage.DeviceGetter;
-import crixec.app.imagefactory.function.bootimage.DeviceManager;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
@@ -79,9 +72,6 @@ public class BackupBootImageActivity extends BaseChildActivity implements TextWa
                 new DoBackup(new File(mDevPath.getEditText().getText().toString()), new File(ImageFactory.DATA_PATH, outfile.getEditText().getText().toString())).execute();
             }
         });
-        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
-        adLayout.addView(adView);
     }
 
     @Override
@@ -163,7 +153,6 @@ public class BackupBootImageActivity extends BaseChildActivity implements TextWa
                         DeviceUtils.openFile(BackupBootImageActivity.this, out);
                     }
                 }).setNegativeButton(android.R.string.cancel, null).show();
-                ImageFactory.show(BackupBootImageActivity.this);
             } else {
                 Toast.makeShortText(getString(R.string.operation_failed));
             }

@@ -10,22 +10,18 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.LinearLayout;
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
 
 import java.io.File;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.Debug;
 import crixec.app.imagefactory.core.ImageFactory;
+import crixec.app.imagefactory.core.Invoker;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileUtils;
-import crixec.app.imagefactory.core.Invoker;
 
 /**
  * Created by crixec on 2016/8/3.
@@ -52,9 +48,6 @@ public class UnpackBootImageActivity extends BaseChildActivity implements View.O
         outputDirectory.getEditText().addTextChangedListener(this);
         sourceBootImage.getEditText().setText("");
         outputDirectory.getEditText().setText("");
-        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
-        adLayout.addView(adView);
     }
 
     @Override
@@ -159,7 +152,6 @@ public class UnpackBootImageActivity extends BaseChildActivity implements View.O
                         .setNegativeButton(android.R.string.no, null)
                         .setCancelable(false)
                         .show();
-                ImageFactory.show(UnpackBootImageActivity.this);
             } else {
                 Toast.makeShortText(getString(R.string.operation_failed));
             }

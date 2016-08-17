@@ -4,10 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import crixec.app.imagefactory.core.Constant;
-import crixec.app.imagefactory.core.Debug;
 import crixec.app.imagefactory.util.ShellUtils;
-import crixec.app.imagefactory.util.TextUtils;
 
 /**
  * Created by crixec on 16-8-10.

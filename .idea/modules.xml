@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:///media/crixec/DevilStudio/AndroidStudioProjects/ImageFactory/ImageFactory.iml" filepath="/media/crixec/DevilStudio/AndroidStudioProjects/ImageFactory/ImageFactory.iml" />
-      <module fileurl="file:///media/crixec/DevilStudio/AndroidStudioProjects/ImageFactory/app/app.iml" filepath="/media/crixec/DevilStudio/AndroidStudioProjects/ImageFactory/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImageFactory.iml" filepath="$PROJECT_DIR$/ImageFactory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

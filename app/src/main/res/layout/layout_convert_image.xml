@@ -32,12 +32,6 @@
                 android:layout_weight="1.0"
                 android:background="@color/colorBackground" />
 
-            <LinearLayout
-                android:id="@+id/adLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".core.ImageFactory"
@@ -32,7 +33,6 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name=".activity.SplashActivity"
-            android:noHistory="true"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,22 +79,6 @@
             android:name=".activity.LogcatActivity"
             android:label="@string/logcat"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="net.youmi.android.AdBrowser"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-
-        <service
-            android:name="net.youmi.android.AdService"
-            android:exported="false" />
-
-        <receiver android:name="net.youmi.android.AdReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

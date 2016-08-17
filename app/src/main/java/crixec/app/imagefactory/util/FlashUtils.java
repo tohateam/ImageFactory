@@ -22,8 +22,7 @@ public class FlashUtils {
             FileUtils.copyFile(file, tmpFile);
             return 0 == ShellUtils.execRoot(String.format("dd if=\'%s\' of=\'%s\'", tmpFile.getPath(), dev.getPath()));
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         } finally {
             tmpFile.delete();
         }
@@ -40,8 +39,7 @@ public class FlashUtils {
             }
             return false;
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         } finally {
             tmpFile.delete();
         }

@@ -18,12 +18,12 @@ import java.io.File;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.ImageFactory;
+import crixec.app.imagefactory.core.Invoker;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileUtils;
-import crixec.app.imagefactory.core.Invoker;
 
 public class Sdat2imgFragment extends Fragment implements View.OnClickListener, TextWatcher {
     private View root;
@@ -179,7 +179,6 @@ public class Sdat2imgFragment extends Fragment implements View.OnClickListener, 
                         .setCancelable(true)
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
-                ImageFactory.show(getActivity());
             } else {
                 Toast.makeShortText(getString(R.string.operation_failed));
             }

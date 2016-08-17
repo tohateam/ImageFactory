@@ -28,15 +28,15 @@ public class ShellUtils {
     private static int hasRoot = 123;
     private static String TAG = "ShellUtils";
 
-    public static interface Result {
-        public void onStdout(String text);
+    public interface Result {
+        void onStdout(String text);
 
-        public void onStderr(String text);
+        void onStderr(String text);
 
     }
 
-    private static interface Output {
-        public void output(String text);
+    private interface Output {
+        void output(String text);
     }
 
     public static class OutputReader extends Thread {
@@ -124,7 +124,7 @@ public class ShellUtils {
             Debug.i(TAG, "RESULT_CODE=" + resultCode);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         try {
             return resultCode;

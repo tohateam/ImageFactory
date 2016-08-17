@@ -9,6 +9,6 @@ public class Constant {
     public static final String KEY_RECOVERY_PATH = "recovery_path";
     public static final String KEY_IS_INITED = "is_inited";
     public static final String LIBRARY_PATH = ImageFactory.getApp().getApplicationInfo().nativeLibraryDir;
-    public static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1;
+    public static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 123;
 
 }

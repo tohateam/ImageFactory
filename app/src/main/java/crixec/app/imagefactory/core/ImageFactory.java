@@ -3,12 +3,11 @@ package crixec.app.imagefactory.core;
 import android.app.Application;
 import android.content.Context;
 
-import net.youmi.android.spot.SpotManager;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
 
-import crixec.app.imagefactory.function.bootimage.Device;
-import crixec.app.imagefactory.util.DeviceUtils;
+import crixec.app.imagefactory.BuildConfig;
 
 public class ImageFactory extends Application {
     public static Application APP;
@@ -19,15 +18,12 @@ public class ImageFactory extends Application {
         // TODO: Implement this method
         super.onCreate();
         APP = this;
+        CrashReport.initCrashReport(getApplicationContext(), "b625275adf", BuildConfig.DEBUG);
         new AppLoader().start();
     }
 
     public static Context getApp() {
         // TODO: Implement this method
         return APP;
-    }
-
-    public static void show(Context context) {
-        SpotManager.getInstance(context).showSpotAds(context);
     }
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import crixec.app.imagefactory.core.Debug;
-import crixec.app.imagefactory.core.ExceptionHandler;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.util.FileUtils;
 import crixec.app.imagefactory.util.ShellUtils;
@@ -36,7 +35,7 @@ public class DeviceManager {
                     FileUtils.setValid(getKernel);
                     FileUtils.setValid(getRecovery);
                 } catch (IOException e) {
-                    ExceptionHandler.handle(e);
+                    throw new RuntimeException(e);
                 }
             }
             List<String> cmds = new ArrayList<>();

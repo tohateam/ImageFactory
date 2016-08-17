@@ -17,21 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
 
 import java.io.File;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.ImageFactory;
+import crixec.app.imagefactory.core.Invoker;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileUtils;
-import crixec.app.imagefactory.core.Invoker;
 
 /**
  * Created by crixec on 2016/8/2.
@@ -77,9 +73,6 @@ public class FirmwareFragment extends Fragment implements View.OnClickListener, 
                 }
             });
         }
-        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
-        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
-        adLayout.addView(adView);
         return rootView;
     }
 
@@ -189,7 +182,6 @@ public class FirmwareFragment extends Fragment implements View.OnClickListener, 
                         .setCancelable(true)
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
-                ImageFactory.show(getActivity());
             } else {
                 Toast.makeShortText(getString(R.string.operation_failed));
             }

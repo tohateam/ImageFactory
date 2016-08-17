@@ -1,23 +1,14 @@
 package crixec.app.imagefactory.util;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
-
 import crixec.app.imagefactory.R;
-import crixec.app.imagefactory.core.ExceptionHandler;
-import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.ui.Toast;
 
 public class DeviceUtils {

@@ -51,5 +51,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:preference-v14:23.2.1'
-    compile files('libs/YoumiSdk_v6.0.0_2016-02-26.jar')
+    compile files('libs/bugly_crash_release.jar')
 }
