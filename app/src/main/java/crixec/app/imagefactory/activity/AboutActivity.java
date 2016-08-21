@@ -15,6 +15,7 @@ import java.util.List;
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.adapter.AboutAdapter;
 import crixec.app.imagefactory.ui.Dialog;
+import crixec.app.imagefactory.util.DeviceUtils;
 
 public class AboutActivity extends BaseChildActivity implements AdapterView.OnItemClickListener {
 
@@ -29,7 +30,6 @@ public class AboutActivity extends BaseChildActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_about);
         applyToolbar(R.id.toolbar);
         listView = (ListView) findViewById(R.id.about_listview);
-        list.add(new Item("Crixec", "", "Email : 79236107@qq.com or crixec@gmail.com\nQQ : 79236107", "https://github.com/Crixec"));
         list.add(new Item("Android Open Source Project", "Google", "Android is an open source software stack for a wide range of mobile devices and a corresponding open source project led by Google. This site offers the information and source code you need to create custom variants of the Android stack, port devices and accessories to the Android platform, and ensure your devices meet compatibility requirements.", "https://source.android.com/"));
         list.add(new Item("Cyanogenmod", " CyanogenMod", "CyanogenMod is an aftermarket firmware for a number of cell phones based on the open-source Android operating system. It offers features not found in the official Android based firmwares of vendors.", "http://www.cyanogenmod.org/"));
         list.add(new Item("Android Support Library", "Google", "The Android Support Library offers a number of features that are not built into the framework. These libraries offer backward-compatible versions of new features, provide useful UI elements that are not included in the framework, and provide a range of utilities that apps can draw on.", "https://developer.android.com/topic/libraries/support-library/index.html"));
@@ -38,6 +38,12 @@ public class AboutActivity extends BaseChildActivity implements AdapterView.OnIt
         adapter = new AboutAdapter(this, list);
         listView.setOnItemClickListener(this);
         listView.setAdapter(adapter);
+        findViewById(R.id.me).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeviceUtils.openUrl(AboutActivity.this, "http://crixec.top");
+            }
+        });
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,15 +60,13 @@ public class AboutActivity extends BaseChildActivity implements AdapterView.OnIt
                 .setPositiveButton(R.string.browse, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
+                        DeviceUtils.openUrl(AboutActivity.this, url);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
+
 
     public boolean joinQQGroup() {
         String key = "B4BqetfGvLXZyyIU6p-3qoqF9elTYx2A";

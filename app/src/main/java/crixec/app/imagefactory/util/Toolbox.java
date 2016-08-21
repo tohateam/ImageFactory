@@ -16,9 +16,9 @@ public class Toolbox {
 
     public static String getToolbox() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return "/system/bin/toybox";
+            return "toybox";
         } else {
-            return "/system/bin/toolbox";
+            return "toolbox";
         }
     }
 
@@ -49,9 +49,5 @@ public class Toolbox {
 
     public static boolean copy(File from, File to) {
         return ShellUtils.exec(String.format("%s cp \'%s\' \'%s\'", getToolbox(), from.getPath(), to.getPath())) == 0;
-    }
-
-    public static boolean chmod(File file, String mode) {
-        return ShellUtils.execRoot(String.format("%s chmod %s \'%s\'", getToolbox(), mode, file.getPath())) == 0;
     }
 }

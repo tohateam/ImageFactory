@@ -57,6 +57,16 @@ public class DeviceManager {
                 public void onStderr(String text) {
 
                 }
+
+                @Override
+                public void onCommand(String command) {
+
+                }
+
+                @Override
+                public void onFinish(int resultCode) {
+
+                }
             }, true);
             if (mKernelPath == null || mRecoveryPath == null) {
                 device = new Device("", "");

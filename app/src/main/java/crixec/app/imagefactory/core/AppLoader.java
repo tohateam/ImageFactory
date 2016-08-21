@@ -29,6 +29,18 @@ public class AppLoader extends Thread {
         }
         Debug.i(TAG, "DATA_PATH=" + ImageFactory.DATA_PATH);
         ImageFactory.DATA_PATH.mkdirs();
+        File kernelBackups = new File(ImageFactory.DATA_PATH, "backups");
+        File kernelUnpacked = new File(ImageFactory.DATA_PATH, "unpacked");
+        File kernelRepacked = new File(ImageFactory.DATA_PATH, "repacked");
+        File imageConverted = new File(ImageFactory.DATA_PATH, "converted");
+        kernelBackups.mkdir();
+        kernelRepacked.mkdir();
+        kernelUnpacked.mkdir();
+        imageConverted.mkdir();
+        ImageFactory.KERNEL_BACKUPS = kernelBackups;
+        ImageFactory.KERNEL_REPACKED = kernelRepacked;
+        ImageFactory.KERNEL_UNPACKED = kernelUnpacked;
+        ImageFactory.IMAGE_CONVERTED = imageConverted;
     }
 
     public static File getDefaultStorage() {

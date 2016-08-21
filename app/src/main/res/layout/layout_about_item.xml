@@ -3,8 +3,6 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="1dp"
     card_view:cardPreventCornerOverlap="true"
     card_view:cardUseCompatPadding="true"
     card_view:contentPadding="2dp">
@@ -38,13 +36,6 @@
                 android:singleLine="true"
                 android:text="Crixec" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_marginBottom="01dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/colorPrimary" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/text3"

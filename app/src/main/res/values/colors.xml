@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/Dark.colorPrimary</color>
-    <color name="colorPrimaryDark">@color/Dark.colorPrimaryDark</color>
-    <color name="colorAccent">@color/Dark.colorAccent</color>
+    <color name="colorPrimary">#424242</color>
+    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorAccent">#8bc34a</color>
     <color name="colorError">#ee5c61</color>
     <color name="colorBackground">@android:color/white</color>
-    <color name="Dark.colorPrimary">#424242</color>
-    <color name="Dark.colorPrimaryDark">#212121</color>
-    <color name="Dark.colorAccent">#8bc34a</color>
-    <color name="Terminal.Text">#f0f6f4</color>
-    <color name="Terminal.Background">#ededed</color>
-    <color name="Terminal.CommandLineArea">#2e3336</color>
-
+    <color name="Terminal.Stdout">#009688</color>
+    <color name="Terminal.Stderr">#ee5c61</color>
+    <color name="Terminal.Command">#607D8B</color>
+    <color name="Terminal.ResultCode">#4CAF50</color>
 </resources>
 	

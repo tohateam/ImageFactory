@@ -27,16 +27,20 @@ import crixec.app.imagefactory.core.Debug;
 public class ShellUtils {
     private static int hasRoot = 123;
     private static String TAG = "ShellUtils";
+    private static boolean isRunning = true;
 
     public interface Result {
         void onStdout(String text);
 
         void onStderr(String text);
 
+        void onCommand(String command);
+
+        void onFinish(int resultCode);
     }
 
-    private interface Output {
-        void output(String text);
+    private static interface Output {
+        public void output(String text);
     }
 
     public static class OutputReader extends Thread {
@@ -62,7 +66,7 @@ public class ShellUtils {
         public void run() {
             // TODO Auto-generated method stub
             super.run();
-            String line;
+            String line = null;
             while (isRunning) {
                 try {
                     line = reader.readLine();
@@ -83,7 +87,7 @@ public class ShellUtils {
     }
 
     private static int exec(final String sh, final List<String> cmds, final Result result) {
-        Process process;
+        Process process = null;
         DataOutputStream stdin = null;
         OutputReader stdout = null;
         OutputReader stderr = null;
@@ -92,28 +96,29 @@ public class ShellUtils {
         try {
             process = Runtime.getRuntime().exec(sh);
             stdin = new DataOutputStream(process.getOutputStream());
-            if (result != null) {
-                stdout = new OutputReader(new BufferedReader(new InputStreamReader(process.getInputStream())),
-                        new Output() {
-                            @Override
-                            public void output(String text) {
-                                // TODO Auto-generated method stub
+            stdout = new OutputReader(new BufferedReader(new InputStreamReader(process.getInputStream())),
+                    new Output() {
+                        @Override
+                        public void output(String text) {
+                            // TODO Auto-generated method stub
+                            if (result != null)
                                 result.onStdout(text);
-                            }
-                        });
-                stderr = new OutputReader(new BufferedReader(new InputStreamReader(process.getErrorStream())),
-                        new Output() {
-                            @Override
-                            public void output(String text) {
-                                // TODO Auto-generated method stub
+                        }
+                    });
+            stderr = new OutputReader(new BufferedReader(new InputStreamReader(process.getErrorStream())),
+                    new Output() {
+                        @Override
+                        public void output(String text) {
+                            // TODO Auto-generated method stub
+                            if (result != null)
                                 result.onStderr(text);
-                            }
-                        });
-                stdout.start();
-                stderr.start();
-            }
+                        }
+                    });
+            stdout.start();
+            stderr.start();
             for (String cmd : cmds) {
                 Debug.i(TAG, cmd);
+                result.onCommand(cmd);
                 stdin.writeBytes(cmd);
                 stdin.writeBytes("\n");
                 stdin.flush();
@@ -122,9 +127,10 @@ public class ShellUtils {
             stdin.flush();
             resultCode = process.waitFor();
             Debug.i(TAG, "RESULT_CODE=" + resultCode);
-
+            if (result != null)
+                result.onFinish(resultCode);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         try {
             return resultCode;
@@ -175,6 +181,16 @@ public class ShellUtils {
 
                 @Override
                 public void onStderr(String text) {
+
+                }
+
+                @Override
+                public void onCommand(String command) {
+
+                }
+
+                @Override
+                public void onFinish(int resultCode) {
 
                 }
             }, true);

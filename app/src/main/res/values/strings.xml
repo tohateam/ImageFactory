@@ -2,8 +2,10 @@
 <resources>
     <!-- useful strings -->
     <string name="app_name">Image Factory</string>
+    <string name="digits" translatable="false">._-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ </string>
+    <string name="digits_path" translatable="false">/._-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ </string>
     <string name="are_you_sure_you_want_to_do_this">Are you sure you want to do this?</string>
-    <string name="operation_failed">Operation Failed</string>
+    <string name="operation_failed">Operation Failed : %s</string>
     <string name="no_root_access_given">No Root Access Given</string>
     <string name="select_file">Select File</string>
     <string name="perform_task">Perform Task</string>
@@ -26,8 +28,8 @@
     <!-- operate boot images strings -->
     <string name="operate_boot_image">OPERATE BOOT IMAGE</string>
     <string name="operate_unpack_boot_image_key" translatable="false">operate_unpack_boot_image_key</string>
-    <string name="operate_unpack_boot_image_summary">Unpack a boot image file to output directory</string>
-    <string name="operate_unpack_boot_image_title">Unpack Boot Image</string>
+    <string name="operate_unpack_boot_image_summary">Unpack boot image file to output directory</string>
+    <string name="operate_unpack_boot_image_title">Unpack Image</string>
     <string name="unpack_boot_image_source_file_path">Boot image source file path</string>
     <string name="checking_boot_image_file">Checking boot image file : \'%s\'...</string>
     <string name="generating_output_directory">Generating output directory : \'%s\'...</string>
@@ -38,18 +40,18 @@
     <string name="output_directory_already_exists">Output directory already exists</string>
     <string name="output_directory_cannot_be_empty">Output directory name cannot be empty</string>
     <string name="source_file_cannot_be_empty">Source file cannot be empty</string>
-    <string name="source_file_not_exists">Source file not existent</string>
+    <string name="source_file_not_exists">Source file does not exist</string>
     <string name="browse_output_directory">Browse output directory</string>
     <string name="unpack_boot_image_output_directory_name">Unpacked boot image output directory name</string>
     <string name="operate_repack_boot_image_key" translatable="false">operate_repack_boot_image_key</string>
     <string name="operate_repack_boot_image_summary">Repack boot image from output directory</string>
-    <string name="operate_repack_boot_image_title">Repack Boot Image</string>
+    <string name="operate_repack_boot_image_title">Repack Image</string>
     <string name="port_boot_image">PORT BOOT IMAGE</string>
     <string name="port_boot_image_key" translatable="false">port_boot_image_common_key</string>
-    <string name="port_boot_image_summary">Port boot image from a sample boot image</string>
-    <string name="port_boot_image_title">Port Boot Image</string>
-    <string name="port_base">Choose a base boot image</string>
-    <string name="port_sample">Choose a sample boot image</string>
+    <string name="port_boot_image_summary">Port boot image from sample boot image</string>
+    <string name="port_boot_image_title">Port Image</string>
+    <string name="port_base">Choose base boot image</string>
+    <string name="port_sample">Choose sample boot image</string>
     <string name="porting">Porting...</string>
     <string name="repacking_failed">Repacking failed</string>
     <string name="repacked_to_file">Repacked to file \'%s\'</string>
@@ -67,11 +69,11 @@
     <!-- flash or back up boot images strings -->
     <string name="flash_or_backup_boot_image">FLASH OR BACKUP BOOT IMAGE</string>
     <string name="flash_boot_image_key" translatable="false">flash_boot_image_key</string>
-    <string name="flash_boot_image_summary">Flash boot image from a file</string>
-    <string name="flash_boot_image_title">Flash Boot Image</string>
+    <string name="flash_boot_image_summary">Flash boot image from file</string>
+    <string name="flash_boot_image_title">Flash Image</string>
     <string name="backup_boot_image_key" translatable="false">backup_boot_image_key</string>
-    <string name="backup_boot_image_summary">Backup boot image to a file</string>
-    <string name="backup_boot_image_title">Backup Boot Image</string>
+    <string name="backup_boot_image_summary">Backup boot image to file</string>
+    <string name="backup_boot_image_title">Backup Image</string>
     <string name="backuping">Backuping...</string>
     <string name="backup_success">Backuping Successful</string>
     <string name="backuped_to_file">Backuped to file \'%s\'</string>
@@ -133,9 +135,16 @@
     <string name="i_agree">I agree</string>
     <string name="disclaimer_content">Please read the following terms\n\n1. This software is freeware, no charge to the user, all free to use all the features of.\n2. All the consequences resulting from the use of this software, I shall not be responsible for that.\n3. The software for non-commercial software, do not use commercial and illegal purposes.\n4. Can not reverse engineer, or create derivative works based upon the software (the QQ group active code).\n5. Crixec owns all intellectual property rights of the software. This software is not for sale, only for licensed use.\n6. Enter the software you agree to all the terms.\n</string>
     <string name="disclaimer">Disclaimer</string>
-    <string name="change_log">Change Log</string>
+    <string name="change_log" >Change Log</string>
     <string name="warning">Warning</string>
     <string name="no_write_external_storage_permission">Can not get permission to operate the storage space, the program can not run, click OK to exit!</string>
+    <string name="copy_result">Copy</string>
+    <string name="close">Close</string>
+    <string name="author_name">Author : </string>
+    <string name="email">Email : </string>
+    <string name="copyright" translatable="false">Copyright © 2016 Crixec. All Rights Reserved.</string>
+    <string name="qq_group">QQ Group : </string>
+    <string name="terminal">Terminal Output</string>
 
 </resources>
 

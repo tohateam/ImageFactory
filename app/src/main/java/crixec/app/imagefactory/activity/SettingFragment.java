@@ -39,7 +39,7 @@ public class SettingFragment extends PreferenceFragment {
                                     ShellUtils.exec(String.format("%s rm -r \'%s\' \'%s\' \'%s\'", Toolbox.getToolbox(), ImageFactory.DATA_PATH.getPath(), ImageFactory.getApp().getFilesDir().getPath(), ImageFactory.getApp().getApplicationInfo().nativeLibraryDir));
                                     android.os.Process.killProcess(Process.myPid());
                                 } catch (Exception e) {
-                                    Toast.makeShortText(getString(R.string.operation_failed));
+                                    Toast.makeShortText(String.format(getString(R.string.operation_failed), e.toString()));
                                 }
                             }
                         })

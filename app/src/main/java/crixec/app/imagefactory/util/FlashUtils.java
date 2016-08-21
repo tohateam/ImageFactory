@@ -2,6 +2,8 @@ package crixec.app.imagefactory.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import crixec.app.imagefactory.core.Debug;
 import crixec.app.imagefactory.core.ImageFactory;
@@ -14,13 +16,15 @@ public class FlashUtils {
 
     // some devices not using SuperSu will causing FileNotFoundException
     //
-    public static boolean flash(File file, File dev) {
+    public static boolean flash(File file, File dev, ShellUtils.Result result) {
         File tmpFile = new File(ImageFactory.getApp().getFilesDir(), file.getName());
         try {
-            Toolbox.chmod(tmpFile, "0777");
-            Debug.i(TAG, "creating tmp file : " + tmpFile.getPath());
+            FileUtils.setValid(tmpFile);
+            String s = "creating tmp file : " + tmpFile.getPath();
+            Debug.i(TAG, s);
+            result.onStdout(s);
             FileUtils.copyFile(file, tmpFile);
-            return 0 == ShellUtils.execRoot(String.format("dd if=\'%s\' of=\'%s\'", tmpFile.getPath(), dev.getPath()));
+            return 0 == ShellUtils.execRoot(String.format("dd if=\'%s\' of=\'%s\'", tmpFile.getPath(), dev.getPath()), result);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -28,17 +32,23 @@ public class FlashUtils {
         }
     }
 
-    public static boolean backup(File dev, File file) {
+    public static boolean backup(File dev, File file, ShellUtils.Result result) {
         File tmpFile = new File(ImageFactory.getApp().getFilesDir(), file.getName());
         try {
-            Debug.i(TAG, "creating tmp file : " + tmpFile.getPath());
-            if (0 == ShellUtils.execRoot(String.format("dd if=\'%s\' of=\'%s\'", dev.getPath(), tmpFile.getPath()))) {
-                Toolbox.chmod(tmpFile, "0777");
+            String s = "creating tmp file : " + tmpFile.getPath();
+            Debug.i(TAG, s);
+            result.onStdout(s);
+            List<String> cmds = new ArrayList<String>();
+            cmds.add(String.format("dd if=\'%s\' of=\'%s\'", dev.getPath(), tmpFile.getPath()));
+            cmds.add(String.format("chmod 0755 \'%s\'", tmpFile.getPath()));
+            if (0 == ShellUtils.exec(cmds, result, true)) {
+                FileUtils.setValid(tmpFile);
                 FileUtils.copyFile(tmpFile, file);
                 return true;
             }
             return false;
         } catch (IOException e) {
+            result.onStderr(e.toString());
             throw new RuntimeException(e);
         } finally {
             tmpFile.delete();

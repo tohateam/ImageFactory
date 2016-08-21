@@ -25,6 +25,7 @@ import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.core.Invoker;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
+import crixec.app.imagefactory.ui.TerminalDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileUtils;
@@ -100,7 +101,7 @@ public class FirmwareFragment extends Fragment implements View.OnClickListener, 
                 });
                 break;
             case R.id.firmware_perform_task:
-                new DoExtract(new File(getText(firmwarePath)), new File(ImageFactory.DATA_PATH, getText(outputPath))).execute();
+                new DoExtract(new File(getText(firmwarePath)), new File(ImageFactory.IMAGE_CONVERTED, getText(outputPath))).execute();
                 break;
 
         }
@@ -150,7 +151,7 @@ public class FirmwareFragment extends Fragment implements View.OnClickListener, 
     class DoExtract extends AsyncTask<Void, Void, File> {
         private File from;
         private File to;
-        private ProgressDialog dialog;
+        private TerminalDialog dialog;
 
         public DoExtract(File from, File to) {
             this.from = from;
@@ -160,44 +161,33 @@ public class FirmwareFragment extends Fragment implements View.OnClickListener, 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(getActivity());
-            dialog.setProgressStyle(R.style.ProgressBar);
-            dialog.setMessage(getString(R.string.extracting));
-            dialog.setCancelable(false);
+            dialog = new TerminalDialog(getActivity());
+            dialog.setTitle(R.string.extracting);
             dialog.show();
         }
 
         @Override
         protected void onPostExecute(final File file) {
             super.onPostExecute(file);
-            dialog.dismiss();
             if (file != null) {
-                Dialog.create(getActivity()).setTitle(R.string.succeed).setMessage(String.format(getString(R.string.extracted_to_directory), file.getPath()))
-                        .setPositiveButton(R.string.browse, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DeviceUtils.openFolder(getActivity(), file);
-                            }
-                        })
-                        .setCancelable(true)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                dialog.writeStdout(String.format(getString(R.string.extracted_to_directory), file.getPath()));
+                dialog.setSecondButton(R.string.browse, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DeviceUtils.openFile(getActivity(), file);
+                    }
+                });
             } else {
-                Toast.makeShortText(getString(R.string.operation_failed));
+                dialog.writeStderr(String.format(getString(R.string.operation_failed), file.getPath()));
             }
         }
 
         @Override
         protected File doInBackground(Void... params) {
-            boolean b = false;
             if (selectedType == 0)
-                b = Invoker.unpackapp(from, to);
+                return Invoker.unpackapp(from, to, dialog) ? to : from;
             else
-                b = Invoker.unpackcpb(from, to);
-            if (b) {
-                return to;
-            }
-            return null;
+                return Invoker.unpackcpb(from, to, dialog) ? to : from;
         }
     }
 

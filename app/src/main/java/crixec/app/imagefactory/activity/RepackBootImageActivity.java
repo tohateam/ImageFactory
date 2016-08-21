@@ -21,6 +21,7 @@ import crixec.app.imagefactory.core.Debug;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.core.Invoker;
 import crixec.app.imagefactory.ui.Dialog;
+import crixec.app.imagefactory.ui.TerminalDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 
@@ -53,7 +54,7 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
             @Override
             public void onClick(View p1) {
                 // TODO: Implement this method
-                File dir = new File(ImageFactory.DATA_PATH, list.get(spinner.getSelectedItemPosition()));
+                File dir = new File(ImageFactory.KERNEL_UNPACKED, list.get(spinner.getSelectedItemPosition()));
                 String name = outfile.getEditText().getText().toString();
                 new RepackbootimgTask(dir, name).execute();
             }
@@ -104,12 +105,7 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
 
         @Override
         protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-
-            }
-            File dir = ImageFactory.DATA_PATH;
+            File dir = ImageFactory.KERNEL_UNPACKED;
             if (dir == null || !dir.exists()) return null;
             for (File folder : dir.listFiles()) {
                 File f = new File(folder, ".config");
@@ -132,7 +128,7 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
 
         private File srcDir;
         private String outputFilename;
-        private ProgressDialog dialog;
+        private TerminalDialog dialog;
 
         public RepackbootimgTask(File srcDir, String outputFilename) {
             this.srcDir = srcDir;
@@ -142,10 +138,8 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(RepackBootImageActivity.this);
-            dialog.setProgressStyle(R.style.ProgressBar);
-            dialog.setCancelable(false);
-            dialog.setMessage(getString(R.string.repacking));
+            dialog = new TerminalDialog(RepackBootImageActivity.this);
+            dialog.setTitle(R.string.repacking);
             dialog.show();
         }
 
@@ -153,23 +147,17 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
         protected void onPostExecute(Boolean msg) {
             super.onPostExecute(msg);
             if (msg) {
-                final File file = new File(ImageFactory.DATA_PATH, outputFilename);
-                Dialog.create(RepackBootImageActivity.this)
-                        .setTitle(R.string.succeed)
-                        .setMessage(String.format(getString(R.string.repacked_to_file), file.getPath()))
-                        .setPositiveButton(R.string.browse, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DeviceUtils.openFile(RepackBootImageActivity.this, file);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setCancelable(false)
-                        .show();
+                final File file = new File(ImageFactory.KERNEL_REPACKED, outputFilename);
+                dialog.writeStdout(String.format(getString(R.string.repacked_to_file), file.getPath()));
+                dialog.setSecondButton(R.string.browse, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DeviceUtils.openFile(RepackBootImageActivity.this, file);
+                    }
+                });
             } else {
-                Toast.makeShortText(getString(R.string.operation_failed));
+                dialog.writeStderr(String.format(getString(R.string.operation_failed), srcDir));
             }
-            dialog.dismiss();
         }
 
 
@@ -182,7 +170,7 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
                     new File(srcDir, "cpio.list"),
                     new File(srcDir, "ramdisk"),
                     new File(srcDir, "dt.img"),
-                    new File(ImageFactory.DATA_PATH, outputFilename)
+                    new File(ImageFactory.KERNEL_REPACKED, outputFilename)
             };
             for (int i = 0; i < 6; i++) {
                 if (!files[i].exists()) {
@@ -191,18 +179,18 @@ public class RepackBootImageActivity extends BaseChildActivity implements TextWa
                 }
             }
             File ramdiskCpio = new File(srcDir, "ramdisk.cpio");
-            if (!Invoker.mkcpio(files[3], ramdiskCpio)) {
+            if (!Invoker.mkcpio(files[3], ramdiskCpio, dialog)) {
                 Debug.i(TAG, "compress ramdisk.cpio failure");
                 return false;
             }
             Debug.i(TAG, "compress ramdisk.cpio successful");
             File ramdiskCpioGz = new File(srcDir, "ramdisk.cpio.gz");
-            if (!Invoker.compressGzip(ramdiskCpio)) {
+            if (!Invoker.compressGzip(ramdiskCpio, dialog)) {
                 Debug.i(TAG, "compress ramdisk.cpio.gz failure");
                 return false;
             }
             Debug.i(TAG, "compress ramdisk.cpio.gz successful");
-            return Invoker.mkbootimg(files[0], files[1], ramdiskCpioGz, files[2], files[5], files[6]);
+            return Invoker.mkbootimg(files[0], files[1], ramdiskCpioGz, files[2], files[5], files[6], dialog);
 
         }
 

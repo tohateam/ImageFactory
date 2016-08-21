@@ -21,6 +21,7 @@ import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.function.bootimage.DeviceGetter;
 import crixec.app.imagefactory.ui.Dialog;
+import crixec.app.imagefactory.ui.TerminalDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FlashUtils;
@@ -69,7 +70,7 @@ public class BackupBootImageActivity extends BaseChildActivity implements TextWa
             @Override
             public void onClick(View p1) {
                 // TODO: Implement this method
-                new DoBackup(new File(mDevPath.getEditText().getText().toString()), new File(ImageFactory.DATA_PATH, outfile.getEditText().getText().toString())).execute();
+                new DoBackup(new File(mDevPath.getEditText().getText().toString()), new File(ImageFactory.KERNEL_BACKUPS, outfile.getEditText().getText().toString())).execute();
             }
         });
     }
@@ -124,7 +125,7 @@ public class BackupBootImageActivity extends BaseChildActivity implements TextWa
     class DoBackup extends AsyncTask<Void, Void, File> {
         private File dev;
         private File out;
-        private ProgressDialog dialog;
+        private TerminalDialog dialog;
 
         public DoBackup(File dev, File out) {
             this.dev = dev;
@@ -134,34 +135,30 @@ public class BackupBootImageActivity extends BaseChildActivity implements TextWa
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(BackupBootImageActivity.this);
-            dialog.setProgressStyle(R.style.ProgressBar);
-            dialog.setCancelable(false);
-            dialog.setMessage(getString(R.string.backuping));
+            dialog = new TerminalDialog(BackupBootImageActivity.this);
+            dialog.setTitle(R.string.backuping);
             dialog.show();
         }
 
         @Override
-        protected void onPostExecute(File file) {
+        protected void onPostExecute(final File file) {
             super.onPostExecute(file);
-            dialog.dismiss();
             if (file != null) {
-                Dialog.create(BackupBootImageActivity.this).setTitle(R.string.backup_success)
-                        .setMessage(String.format(getString(R.string.backuped_to_file), out.getPath())).setPositiveButton(R.string.browse, new DialogInterface.OnClickListener() {
+                dialog.writeStdout(String.format(getString(R.string.backuped_to_file), file.getPath()));
+                dialog.setSecondButton(R.string.browse, new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DeviceUtils.openFile(BackupBootImageActivity.this, out);
+                    public void onClick(View v) {
+                        DeviceUtils.openFile(BackupBootImageActivity.this, file);
                     }
-                }).setNegativeButton(android.R.string.cancel, null).show();
+                });
             } else {
-                Toast.makeShortText(getString(R.string.operation_failed));
+                dialog.writeStderr(String.format(getString(R.string.operation_failed), file.getPath()));
             }
         }
 
         @Override
         protected File doInBackground(Void... params) {
-            if (FlashUtils.backup(dev, out)) return out;
-            return null;
+            return FlashUtils.backup(dev, out, dialog) ? out : dev;
         }
     }
 }

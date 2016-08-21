@@ -3,7 +3,7 @@
     <!-- useful strings -->
     <string name="app_name">镜像工厂</string>
     <string name="are_you_sure_you_want_to_do_this">你确定要这样做？</string>
-    <string name="operation_failed">操作失败</string>
+    <string name="operation_failed">操作失败：%s</string>
     <string name="no_root_access_given">没有获取到ROOT权限</string>
     <string name="select_file">选择文件</string>
     <string name="perform_task">执行操作</string>
@@ -129,6 +129,13 @@
     <string name="disclaimer">用户许可</string>
     <string name="warning">警告</string>
     <string name="no_write_external_storage_permission">没有获取到操作存储空间的权限，程序不能运行，点击确定退出！</string>
+    <string name="copy_result">复制</string>
+    <string name="close">关闭</string>
+    <string name="author_name">作者：</string>
+    <string name="email">邮箱：</string>
+    <string name="qq_group">QQ群：</string>
+    <string name="change_log">更新日志</string>
+    <string name="terminal">终端输出</string>
 </resources>
 
 

@@ -20,6 +20,7 @@ import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.function.bootimage.DeviceGetter;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
+import crixec.app.imagefactory.ui.TerminalDialog;
 import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.FileUtils;
 import crixec.app.imagefactory.util.FlashUtils;
@@ -143,7 +144,7 @@ public class FlashBootImageActivity extends BaseChildActivity implements TextWat
     class DoFlash extends AsyncTask<Void, Void, File> {
         private File dev;
         private File file;
-        private ProgressDialog dialog;
+        private TerminalDialog dialog;
 
         public DoFlash(File file, File dev) {
             this.file = file;
@@ -153,33 +154,24 @@ public class FlashBootImageActivity extends BaseChildActivity implements TextWat
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(FlashBootImageActivity.this);
-            dialog.setProgressStyle(R.style.ProgressBar);
-            dialog.setCancelable(false);
-            dialog.setMessage(getString(R.string.flashing));
+            dialog = new TerminalDialog(FlashBootImageActivity.this);
+            dialog.setTitle(R.string.flashing);
             dialog.show();
         }
 
         @Override
         protected void onPostExecute(File file) {
             super.onPostExecute(file);
-            dialog.dismiss();
             if (file != null) {
-                Dialog.create(FlashBootImageActivity.this)
-                        .setTitle(R.string.succeed)
-                        .setMessage(String.format(getString(R.string.flashed_file_from), file.getPath()))
-                        .setPositiveButton(android.R.string.ok, null)
-                        .show();
+                dialog.writeStdout(String.format(getString(R.string.flashed_file_from), file.getPath()));
             } else {
-                Toast.makeShortText(getString(R.string.operation_failed));
+                dialog.writeStderr(String.format(getString(R.string.operation_failed), file.getPath()));
             }
         }
 
         @Override
         protected File doInBackground(Void... params) {
-            if (FlashUtils.flash(file, dev))
-                return file;
-            return null;
+            return FlashUtils.flash(file, dev, dialog) ? dev : file;
         }
     }
 }
