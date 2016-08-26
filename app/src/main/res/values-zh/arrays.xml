@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="partition_type">
+        <item>Boot</item>
+        <item>Recovery</item>
+    </string-array>
+    <string-array name="cpio_new_item">
+        <item>文件</item>
+        <item>目录</item>
+    </string-array>
+    <string-array name="cpio_action">
+        <item>编辑</item>
+        <item>删除</item>
+    </string-array>
+</resources>
