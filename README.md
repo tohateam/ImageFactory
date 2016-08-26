@@ -66,6 +66,7 @@
 
 ```
 # 应用截图
+![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/splash.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/main_page_1.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/main_page_2.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/drawer.png)
