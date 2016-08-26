@@ -15,8 +15,6 @@ public class AppLoader extends Thread {
     public void run() {
         // TODO: Implement this method
         super.run();
-        Debug.init(new File(ImageFactory.getApp().getFilesDir(), "log_" + DeviceUtils.getSystemTime() + ".txt"));
-        Debug.i(TAG, "Loading app");
         XmlDataUtils.getInstance().init();
         if (XmlDataUtils.getString(Constant.KEY_DATA_PATH).equals("")) {
             XmlDataUtils.putString(Constant.KEY_DATA_PATH, getDefaultStorage().getPath());
@@ -27,16 +25,20 @@ public class AppLoader extends Thread {
                 ImageFactory.DATA_PATH = getDefaultStorage();
             }
         }
-        Debug.i(TAG, "DATA_PATH=" + ImageFactory.DATA_PATH);
         ImageFactory.DATA_PATH.mkdirs();
+        File log = new File(ImageFactory.DATA_PATH, ".logs");
+        log.mkdirs();
+        Debug.init(new File(log, "log_" + DeviceUtils.getSystemTime() + ".txt"));
+        Debug.i(TAG, "Loading app");
+        Debug.i(TAG, "DATA_PATH=" + ImageFactory.DATA_PATH);
         File kernelBackups = new File(ImageFactory.DATA_PATH, "backups");
         File kernelUnpacked = new File(ImageFactory.DATA_PATH, "unpacked");
         File kernelRepacked = new File(ImageFactory.DATA_PATH, "repacked");
         File imageConverted = new File(ImageFactory.DATA_PATH, "converted");
-        kernelBackups.mkdir();
-        kernelRepacked.mkdir();
-        kernelUnpacked.mkdir();
-        imageConverted.mkdir();
+        kernelBackups.mkdirs();
+        kernelRepacked.mkdirs();
+        kernelUnpacked.mkdirs();
+        imageConverted.mkdirs();
         ImageFactory.KERNEL_BACKUPS = kernelBackups;
         ImageFactory.KERNEL_REPACKED = kernelRepacked;
         ImageFactory.KERNEL_UNPACKED = kernelUnpacked;

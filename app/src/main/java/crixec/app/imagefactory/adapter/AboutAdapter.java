@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import crixec.app.imagefactory.R;
-import crixec.app.imagefactory.activity.AboutActivity;
+import crixec.app.imagefactory.bean.AboutItem;
 
 /**
  * Created by Crixec on 2016/8/12.
  */
 public class AboutAdapter extends BaseAdapter {
-    private List<AboutActivity.Item> list = new ArrayList<AboutActivity.Item>();
+    private List<AboutItem> list = new ArrayList<>();
     private Context context;
 
-    public AboutAdapter(Context context, List<AboutActivity.Item> list) {
+    public AboutAdapter(Context context, List<AboutItem> list) {
         this.context = context;
         this.list = list;
     }
@@ -54,7 +54,7 @@ public class AboutAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        AboutActivity.Item item = list.get(position);
+        AboutItem item = list.get(position);
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
         holder.text3.setText(item.getText3());

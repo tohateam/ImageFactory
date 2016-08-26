@@ -4,6 +4,8 @@ import android.os.Build;
 
 import java.io.File;
 
+import crixec.app.imagefactory.core.Invoker;
+
 /**
  * Created by Crixec on 2016/8/13.
  */
@@ -14,12 +16,22 @@ public class Toolbox {
     public static final int REBOOT_RECOVERY = 4;
     public static final int REBOOT_BOOTLOADER = 5;
 
-    public static String getToolbox() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return "toybox";
-        } else {
-            return "toolbox";
-        }
+    public static boolean envalid(File file) {
+        return envalid(file, null);
+    }
+
+    public static boolean envalid(File file, ShellUtils.Result result) {
+        String cmd = String.format("%s envalid \'%s\'", Invoker.getInvoker(), file.getPath());
+        return ShellUtils.execRoot(cmd, result) == 0;
+    }
+
+    public static boolean dd(File from, File to) {
+        return dd(from, to, null);
+    }
+
+    public static boolean dd(File from, File to, ShellUtils.Result result) {
+        String cmd = String.format("%s dd if=\'%s\' of=\'%s\'", Invoker.getInvoker(), from.getPath(), to.getPath());
+        return ShellUtils.execRoot(cmd, result) == 0;
     }
 
     public static void reboot(int action) {
@@ -27,9 +39,6 @@ public class Toolbox {
         switch (action) {
             case REBOOT_REBOOT:
                 command = "reboot";
-                break;
-            case REBOOT_SHUTDOWN:
-                command = "reboot -p";
                 break;
             case REBOOT_RECOVERY:
                 command = "reboot recovery";
@@ -45,9 +54,5 @@ public class Toolbox {
                 break;
         }
         ShellUtils.execRoot(command);
-    }
-
-    public static boolean copy(File from, File to) {
-        return ShellUtils.exec(String.format("%s cp \'%s\' \'%s\'", getToolbox(), from.getPath(), to.getPath())) == 0;
     }
 }

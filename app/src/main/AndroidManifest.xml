@@ -7,7 +7,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="24" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -20,13 +20,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen">
@@ -37,52 +30,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AboutActivity"
-            android:label="@string/about"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.UnpackBootImageActivity"
-            android:label="@string/operate_unpack_boot_image_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.RepackBootImageActivity"
-            android:label="@string/operate_repack_boot_image_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.PortBootImageActivity"
-            android:label="@string/port_boot_image_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.FlashBootImageActivity"
-            android:label="@string/flash_boot_image_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.BackupBootImageActivity"
-            android:label="@string/backup_boot_image_title"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.SettingActivity"
-            android:label="@string/setting"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name=".activity.LogcatActivity"
-            android:label="@string/logcat"
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FunctionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name=".activity.CpioEditorActivity"
+            android:label="@string/cpio_editor"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\cpio.list" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

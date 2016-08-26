@@ -14,9 +14,6 @@
         <item
             android:id="@+id/reboot_hot"
             android:title="@string/reboot_hot_title" />
-        <item
-            android:id="@+id/reboot_shutdown"
-            android:title="@string/reboot_shutdown_title" />
     </group>
     <group
         android:id="@+id/personal_items"

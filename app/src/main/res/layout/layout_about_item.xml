@@ -3,6 +3,10 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    card_view:cardCornerRadius="0dp"
     card_view:cardPreventCornerOverlap="true"
     card_view:cardUseCompatPadding="true"
     card_view:contentPadding="2dp">
@@ -25,7 +29,8 @@
                 android:ellipsize="end"
                 android:gravity="left"
                 android:singleLine="true"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold|italic" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text2"
@@ -34,12 +39,14 @@
                 android:ellipsize="end"
                 android:gravity="right"
                 android:singleLine="true"
-                android:text="Crixec" />
+                android:text="Crixec"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/text3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:textStyle="normal" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

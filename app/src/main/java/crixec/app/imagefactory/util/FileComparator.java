@@ -1,6 +1,7 @@
 package crixec.app.imagefactory.util;
-import java.util.Comparator;
+
 import java.io.File;
+import java.util.Comparator;
 
 public class FileComparator implements Comparator<Object>
 {

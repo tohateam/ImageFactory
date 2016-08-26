@@ -6,46 +6,44 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import crixec.app.imagefactory.R;
-import crixec.app.imagefactory.adapter.MainPageAdapter;
+import crixec.app.imagefactory.adapter.FunctionAdapter;
+import crixec.app.imagefactory.adapter.OnRecyclerViewItemClickListener;
+import crixec.app.imagefactory.bean.Function;
 import crixec.app.imagefactory.core.Constant;
-import crixec.app.imagefactory.function.bootimage.BootImageFragment;
-import crixec.app.imagefactory.function.convertimage.ConvertImageFragment;
-import crixec.app.imagefactory.function.firmware.FirmwareFragment;
 import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.Toast;
+import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.Toolbox;
 import crixec.app.imagefactory.util.XmlDataUtils;
 import crixec.app.imagefactory.util.loader.ChangeLogLoader;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, OnRecyclerViewItemClickListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
-    private ArrayList<String> names = new ArrayList<String>();
-    private MainPageAdapter fragmentAdapter;
     private String TAG = "MainActivity";
+    private RecyclerView recyclerView;
+    private FunctionAdapter adapter;
+    private List<Function> datas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,40 +91,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void initContainer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.activity_main_tablayout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        // add main page tabs
-        BootImageFragment bootImageFragment = new BootImageFragment();
-        ConvertImageFragment sparseImageFragment = new ConvertImageFragment();
-        final FirmwareFragment firmwareFragment = new FirmwareFragment();
-        fragments.add(bootImageFragment);
-        fragments.add(sparseImageFragment);
-        fragments.add(firmwareFragment);
-        names.add(getString(R.string.function_boot_image));
-        names.add(getString(R.string.function_convert_image));
-        names.add(getString(R.string.function_firmware_tool));
-        tabLayout.addTab(tabLayout.newTab());
-        tabLayout.addTab(tabLayout.newTab());
-        tabLayout.addTab(tabLayout.newTab());
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        fragmentAdapter = new MainPageAdapter(getSupportFragmentManager(), fragments);
-        viewPager.setAdapter(fragmentAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setText(names.get(0));
-        tabLayout.getTabAt(1).setText(names.get(1));
-        tabLayout.getTabAt(2).setText(names.get(2));
         navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showChangeLog();
             }
         });
+        ((AppCompatTextView) navigationView.getHeaderView(0).findViewById(R.id.version)).setText(DeviceUtils.getVersionName(this));
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        addFunctions();
+        adapter = new FunctionAdapter(getLayoutInflater(), datas, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
     private void showChangeLog() {
@@ -146,15 +128,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = null;
         switch (id) {
             case R.id.drawer_about: {
-                intent = new Intent(MainActivity.this, AboutActivity.class);
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_ABOUT);
                 break;
             }
             case R.id.drawer_setting: {
-                intent = new Intent(MainActivity.this, SettingActivity.class);
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_SETTING);
                 break;
             }
             case R.id.drawer_logcat: {
-                intent = new Intent(MainActivity.this, LogcatActivity.class);
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_LOGCAT);
                 break;
             }
             case R.id.reboot_normal: {
@@ -173,10 +158,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 showRebootConfirmDialog(R.string.reboot_bootloader_title, Toolbox.REBOOT_BOOTLOADER);
                 return false;
             }
-            case R.id.reboot_shutdown: {
-                showRebootConfirmDialog(R.string.reboot_shutdown_title, Toolbox.REBOOT_SHUTDOWN);
-                return false;
-            }
         }
         if (intent != null) {
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -193,11 +174,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 Toolbox.reboot(action);
             }
         }).setNegativeButton(android.R.string.no, null).setCancelable(true).show();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //super.onSaveInstanceState(outState);
     }
 
     private boolean nextExit = false;
@@ -222,15 +198,70 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    private void addFunctions() {
+        Function unpackBoot = new Function(getString(R.string.function_unpack_boot_image), getString(R.string.function_unpack_boot_image_summary));
+        Function repackBoot = new Function(getString(R.string.function_repack_boot_image), getString(R.string.function_repack_boot_image_summary));
+        Function portBoot = new Function(getString(R.string.function_port_boot_image), getString(R.string.function_port_boot_image_summary));
+        Function backupBoot = new Function(getString(R.string.function_backup_boot_image), getString(R.string.function_backup_boot_image_summary));
+        Function flashBoot = new Function(getString(R.string.function_flash_boot_image), getString(R.string.function_flash_boot_image_summary));
+        Function simg2img = new Function(getString(R.string.function_simg2img), getString(R.string.function_simg2img_summary));
+        Function img2simg = new Function(getString(R.string.function_img2simg), getString(R.string.function_img2simg_summary));
+        Function sdat2img = new Function(getString(R.string.function_sdat2img), getString(R.string.function_sdat2img_summary));
+        Function unpackapp = new Function(getString(R.string.function_split_app), getString(R.string.function_split_app_summary));
+        datas.add(unpackBoot);
+        datas.add(repackBoot);
+        datas.add(portBoot);
+        datas.add(flashBoot);
+        datas.add(backupBoot);
+        datas.add(simg2img);
+        datas.add(img2simg);
+        datas.add(sdat2img);
+        datas.add(unpackapp);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public void onClick(View view, int pos) {
+        Intent intent = null;
+        switch (pos) {
+            case 0:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_UNPACK_BOOT_IMAGE);
+                break;
+            case 1:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_REPACK_BOOT_IMAGE);
+                break;
+            case 2:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_PORT_BOOT_IMAGE);
+                break;
+            case 3:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_FLASH_BOOT_IMAGE);
+                break;
+            case 4:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_BACKUP_BOOT_IMAGE);
+                break;
+            case 5:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_SIMG2IMG);
+                break;
+            case 6:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_IMG2SIMG);
+                break;
+            case 7:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_SDAT2IMG);
+                break;
+            case 8:
+                intent = new Intent(this, FunctionActivity.class);
+                intent.putExtra(FunctionActivity.TOKEN, FunctionActivity.FUNCTION_SPLIT_APP);
+                break;
+        }
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
-
 }

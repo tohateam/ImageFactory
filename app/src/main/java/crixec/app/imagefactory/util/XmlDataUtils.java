@@ -2,6 +2,7 @@ package crixec.app.imagefactory.util;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import crixec.app.imagefactory.core.ImageFactory;
 
 public class XmlDataUtils {

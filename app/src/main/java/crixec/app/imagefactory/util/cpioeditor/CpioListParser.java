@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import crixec.app.imagefactory.core.Debug;
+
 public class CpioListParser {
     //	dir . 0777 0 0
 //	file fstab.qcom ramdisk/fstab.qcom 0640 0 0
@@ -28,6 +30,7 @@ public class CpioListParser {
 
     private File cpioFile;
     private List<CpioEntity> entities = new ArrayList<>();
+    private String TAG = "CpioListParser";
 
     private CpioListParser(File cpioFile) {
         this.cpioFile = cpioFile;
@@ -99,7 +102,7 @@ public class CpioListParser {
                 if (line.equals("")) continue;
                 CpioEntity entity = parseLine(line.replace("  ", " "));
                 if (entity.getType().equals(ENTITY_UNKNOW)) {
-                    throw new IOException("Parsing cpio list failed with line: " + line);
+                    Debug.e(TAG, "Parsing cpio list failed with line: " + line);
                 } else {
                     entities.add(entity);
                 }

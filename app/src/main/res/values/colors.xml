@@ -2,12 +2,13 @@
 <resources>
     <color name="colorPrimary">#424242</color>
     <color name="colorPrimaryDark">#212121</color>
-    <color name="colorAccent">#8bc34a</color>
+    <color name="colorAccent">#4CAF50</color>
     <color name="colorError">#ee5c61</color>
     <color name="colorBackground">@android:color/white</color>
     <color name="Terminal.Stdout">#009688</color>
     <color name="Terminal.Stderr">#ee5c61</color>
     <color name="Terminal.Command">#607D8B</color>
     <color name="Terminal.ResultCode">#4CAF50</color>
+    <color name="colorDivider">#BDBDBD</color>
 </resources>
 	

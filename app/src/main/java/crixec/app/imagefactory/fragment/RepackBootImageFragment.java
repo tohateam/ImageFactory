@@ -67,7 +67,6 @@ public class RepackBootImageFragment extends BaseFragment implements TextWatcher
                     new RepackbootimgTask(dir, name).execute();
                 }
             });
-            outfile.getEditText().setText("");
             new LoadUnpacked().execute();
         }
         return root;

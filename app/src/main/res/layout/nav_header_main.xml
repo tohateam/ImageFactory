@@ -14,7 +14,6 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/logo"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:scaleType="fitXY"
@@ -30,6 +29,7 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/version"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/custom_your_images" />
 

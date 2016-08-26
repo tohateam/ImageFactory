@@ -21,6 +21,7 @@ import java.util.HashMap;
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileComparator;
+import crixec.app.imagefactory.util.FileUtils;
 import crixec.app.imagefactory.util.XmlDataUtils;
 
 public class FileChooseDialog extends AppCompatDialog {
@@ -116,7 +117,7 @@ public class FileChooseDialog extends AppCompatDialog {
             } else {
                 map.put("NAME", file.getName());
                 map.put("IMAGE", image);
-                map.put("TIME", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(file.lastModified())));
+                map.put("TIME", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(file.lastModified())) + "  " + FileUtils.parseFileSize(file.length()));
             }
             itemList.add(map);
         }

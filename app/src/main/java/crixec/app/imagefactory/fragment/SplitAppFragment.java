@@ -1,9 +1,11 @@
 package crixec.app.imagefactory.fragment;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -13,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.File;
+import java.util.List;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.activity.BaseActivity;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.core.Invoker;
+import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.TerminalDialog;
 import crixec.app.imagefactory.util.DeviceUtils;
@@ -54,8 +58,6 @@ public class SplitAppFragment extends BaseFragment implements View.OnClickListen
             firmwarePath.getEditText().addTextChangedListener(this);
             outputPath.getEditText().addTextChangedListener(this);
             performTask.setEnabled(false);
-            firmwarePath.getEditText().setText("");
-            outputPath.getEditText().setText("");
 
         }
         return rootView;
@@ -76,7 +78,32 @@ public class SplitAppFragment extends BaseFragment implements View.OnClickListen
                 });
                 break;
             case R.id.firmware_perform_task:
-                new DoExtract(new File(getText(firmwarePath)), new File(ImageFactory.IMAGE_CONVERTED, getText(outputPath))).execute();
+                final File file = new File(getText(firmwarePath));
+                final List<String> list = Invoker.list_app_images(file);
+                final String[] images = new String[list.size()];
+                final boolean[] checked = new boolean[list.size()];
+                for (int i = 0; i < list.size(); i++)
+                    checked[i] = false;
+                list.toArray(images);
+                final AlertDialog.Builder builder = Dialog.create(getActivity());
+                builder.setMultiChoiceItems(images, checked, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        checked[which] = isChecked;
+                    }
+                }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String filters = "";
+                        for (int i = 0; i < list.size(); i++) {
+                            if (checked[i]) {
+                                filters += " " + images[i];
+                            }
+                        }
+                        new DoExtract(file, new File(ImageFactory.IMAGE_CONVERTED, getText(outputPath)), filters).execute();
+                    }
+                }).setNegativeButton(android.R.string.cancel, null).setCancelable(true).
+                        setTitle(R.string.function_split_app_choice).show();
                 break;
 
         }
@@ -101,7 +128,7 @@ public class SplitAppFragment extends BaseFragment implements View.OnClickListen
             firmwarePath.setErrorEnabled(false);
         }
         if (TextUtils.isEmpty(getText(outputPath).trim())) {
-            outputPath.setError(getString(R.string.output_directory_cannot_be_empty));
+            outputPath.setError(getString(R.string.output_folder_cannot_be_empty));
             outputPath.setErrorEnabled(true);
         } else {
             outputPath.setError(null);
@@ -127,10 +154,12 @@ public class SplitAppFragment extends BaseFragment implements View.OnClickListen
         private File from;
         private File to;
         private TerminalDialog dialog;
+        private String filters;
 
-        public DoExtract(File from, File to) {
+        public DoExtract(File from, File to, String filters) {
             this.from = from;
             this.to = to;
+            this.filters = filters;
         }
 
         @Override
@@ -144,8 +173,8 @@ public class SplitAppFragment extends BaseFragment implements View.OnClickListen
         @Override
         protected void onPostExecute(final File file) {
             super.onPostExecute(file);
-            if (file != null) {
-                dialog.writeStdout(String.format(getString(R.string.extracted_to_directory), file.getPath()));
+            if (file == to) {
+                dialog.writeStdout(String.format(getString(R.string.extracted_to_folder), file.getPath()));
                 dialog.setSecondButton(R.string.browse, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -159,7 +188,7 @@ public class SplitAppFragment extends BaseFragment implements View.OnClickListen
 
         @Override
         protected File doInBackground(Void... params) {
-            return Invoker.unpackapp(from, to, dialog) ? to : from;
+            return Invoker.splitapp(from, to, filters, dialog) ? to : from;
         }
     }
 

@@ -14,27 +14,34 @@ import android.view.ViewGroup;
 import java.io.File;
 
 import crixec.app.imagefactory.R;
+import crixec.app.imagefactory.activity.BaseActivity;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.core.Invoker;
-import crixec.app.imagefactory.fragment.BaseFragment;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.TerminalDialog;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileUtils;
 
 public class Img2simgFragment extends BaseFragment implements TextWatcher {
-    private View root;
     private TextInputLayout sparseImage;
     private TextInputLayout rawImage;
     private AppCompatButton selectFile;
     private AppCompatButton performTask;
     private String TAG = "Img2simgFragment";
 
+    public static BaseFragment newInstance(BaseActivity activity) {
+        Img2simgFragment fragment = new Img2simgFragment();
+        fragment.setActivity(activity);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 // TODO: Implement this method
+        View root = getContentView();
         if (root == null) {
-            root = inflater.inflate(R.layout.layout_img2simg, container, false);
+            root = inflater.inflate(R.layout.fragment_img2simg, container, false);
+            setContentView(root);
             rawImage = (TextInputLayout) findViewById(R.id.img2simg_image_path);
             sparseImage = (TextInputLayout) findViewById(R.id.img2simg_output_name);
             sparseImage.getEditText().addTextChangedListener(this);
@@ -60,15 +67,9 @@ public class Img2simgFragment extends BaseFragment implements TextWatcher {
                     });
                 }
             });
-            sparseImage.getEditText().setText("");
-            rawImage.getEditText().setText("");
         }
 
         return root;
-    }
-
-    public View findViewById(int id) {
-        return root.findViewById(id);
     }
 
     @Override

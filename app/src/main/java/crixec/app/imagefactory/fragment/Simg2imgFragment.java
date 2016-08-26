@@ -1,11 +1,8 @@
 package crixec.app.imagefactory.fragment;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,27 +14,33 @@ import android.view.ViewGroup;
 import java.io.File;
 
 import crixec.app.imagefactory.R;
+import crixec.app.imagefactory.activity.BaseActivity;
 import crixec.app.imagefactory.core.ImageFactory;
 import crixec.app.imagefactory.core.Invoker;
-import crixec.app.imagefactory.ui.Dialog;
 import crixec.app.imagefactory.ui.FileChooseDialog;
 import crixec.app.imagefactory.ui.TerminalDialog;
-import crixec.app.imagefactory.ui.Toast;
 import crixec.app.imagefactory.util.DeviceUtils;
 import crixec.app.imagefactory.util.FileUtils;
 
-public class Simg2imgFragment extends Fragment implements TextWatcher {
-    private View root;
+public class Simg2imgFragment extends BaseFragment implements TextWatcher {
     private TextInputLayout sparseImage;
     private TextInputLayout rawImage;
     private AppCompatButton selectFile;
     private AppCompatButton performTask;
 
+    public static BaseFragment newInstance(BaseActivity activity) {
+        Simg2imgFragment fragment = new Simg2imgFragment();
+        fragment.setActivity(activity);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 // TODO: Implement this method
+        View root = getContentView();
         if (root == null) {
-            root = inflater.inflate(R.layout.layout_simg2img, container, false);
+            root = inflater.inflate(R.layout.fragment_simg2img, container, false);
+            setContentView(root);
             sparseImage = (TextInputLayout) findViewById(R.id.simg2img_image_path);
             rawImage = (TextInputLayout) findViewById(R.id.simg2img_output_name);
             sparseImage.getEditText().addTextChangedListener(this);
@@ -62,16 +65,11 @@ public class Simg2imgFragment extends Fragment implements TextWatcher {
                     });
                 }
             });
-            sparseImage.getEditText().setText("");
-            rawImage.getEditText().setText("");
         }
 
         return root;
     }
 
-    public View findViewById(int id) {
-        return root.findViewById(id);
-    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

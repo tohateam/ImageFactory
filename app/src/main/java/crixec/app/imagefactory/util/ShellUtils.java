@@ -96,29 +96,32 @@ public class ShellUtils {
         try {
             process = Runtime.getRuntime().exec(sh);
             stdin = new DataOutputStream(process.getOutputStream());
-            stdout = new OutputReader(new BufferedReader(new InputStreamReader(process.getInputStream())),
-                    new Output() {
-                        @Override
-                        public void output(String text) {
-                            // TODO Auto-generated method stub
-                            if (result != null)
-                                result.onStdout(text);
-                        }
-                    });
-            stderr = new OutputReader(new BufferedReader(new InputStreamReader(process.getErrorStream())),
-                    new Output() {
-                        @Override
-                        public void output(String text) {
-                            // TODO Auto-generated method stub
-                            if (result != null)
-                                result.onStderr(text);
-                        }
-                    });
-            stdout.start();
-            stderr.start();
+            if (result != null) {
+                stdout = new OutputReader(new BufferedReader(new InputStreamReader(process.getInputStream())),
+                        new Output() {
+                            @Override
+                            public void output(String text) {
+                                // TODO Auto-generated method stub
+                                if (result != null)
+                                    result.onStdout(text);
+                            }
+                        });
+                stderr = new OutputReader(new BufferedReader(new InputStreamReader(process.getErrorStream())),
+                        new Output() {
+                            @Override
+                            public void output(String text) {
+                                // TODO Auto-generated method stub
+                                if (result != null)
+                                    result.onStderr(text);
+                            }
+                        });
+                stdout.start();
+                stderr.start();
+            }
             for (String cmd : cmds) {
                 Debug.i(TAG, cmd);
-                result.onCommand(cmd);
+                if (result != null)
+                    result.onCommand(cmd);
                 stdin.writeBytes(cmd);
                 stdin.writeBytes("\n");
                 stdin.flush();
@@ -136,15 +139,18 @@ public class ShellUtils {
             return resultCode;
         } finally {
             try {
-                stdout.cancel();
-                stderr.cancel();
-                stdin.close();
+                if (result != null) {
+                    stdout.cancel();
+                    stderr.cancel();
+                    stdin.close();
+                }
                 stdout.close();
                 stderr.close();
             } catch (Exception e) {
 
             }
         }
+
     }
 
     public static int exec(final List<String> cmds, final Result result, final boolean isRoot) {

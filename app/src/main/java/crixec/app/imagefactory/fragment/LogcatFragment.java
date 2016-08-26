@@ -20,7 +20,7 @@ public class LogcatFragment extends BaseFragment {
     private AppCompatTextView content = null;
 
     public static BaseFragment newInstance(BaseActivity activity) {
-        Sdat2imgFragment fragment = new Sdat2imgFragment();
+        LogcatFragment fragment = new LogcatFragment();
         fragment.setActivity(activity);
         return fragment;
     }

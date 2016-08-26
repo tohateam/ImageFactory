@@ -1,5 +1,7 @@
 package crixec.app.imagefactory.core;
 
+import android.text.TextUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Invoker {
     private static String TAG = "Invoker";
 
     private static boolean execInvoker(ShellUtils.Result result, String cmd) {
-        String s = getNativeFakeProgram("libinvoker.so") + " " + cmd;
+        String s = getInvoker() + " " + cmd;
         return 0 == ShellUtils.exec(s, result, false);
     }
 
@@ -78,37 +80,65 @@ public class Invoker {
         return execInvoker(result, cmd);
     }
 
-    public static boolean unpackapp(File app, File outputDir) {
-        return unpackapp(app, outputDir, null);
-    }
-
-    public static boolean unpackapp(File app, File outputDir, ShellUtils.Result result) {
-        String cmd = String.format("unpackapp \'%s\' \'%s\'", app.getPath(), outputDir.getPath());
+    public static boolean splitapp(File app, File outputDir, String filters, ShellUtils.Result result) {
+        String cmd = String.format("split_app \'%s\' \'%s\' %s", app.getPath(), outputDir.getPath(), filters);
         return execInvoker(result, cmd);
     }
 
-    public static boolean unpackcpb(File cpb, File outputDir) {
-        return unpackapp(cpb, outputDir, null);
-    }
+    public static List<String> list_app_images(File app) {
+        String cmd = String.format("split_app --list \'%s\'", app.getPath());
+        final List<String> sb = new ArrayList<>();
+        execInvoker(new ShellUtils.Result() {
+            @Override
+            public void onStdout(String text) {
+                if (!TextUtils.isEmpty(text)) {
+                    sb.add(text);
+                }
+            }
 
-    public static boolean unpackcpb(File cpb, File outputDir, ShellUtils.Result result) {
-        String cmd = String.format("unpackcpb \'%s\' \'%s\'", cpb.getPath(), outputDir.getPath());
-        return execInvoker(result, cmd);
+            @Override
+            public void onStderr(String text) {
+
+            }
+
+            @Override
+            public void onCommand(String command) {
+
+            }
+
+            @Override
+            public void onFinish(int resultCode) {
+
+            }
+        }, cmd);
+        return sb;
     }
+//
+//    public static boolean unpackcpb(File cpb, File outputDir) {
+//        return unpackapp(cpb, outputDir, null);
+//    }
+//
+//    public static boolean unpackcpb(File cpb, File outputDir, ShellUtils.Result result) {
+//        String cmd = String.format("unpackcpb \'%s\' \'%s\'", cpb.getPath(), outputDir.getPath());
+//        return execInvoker(result, cmd);
+//    }
 
     public static String getNativeFakeProgram(String programName) {
         return Constant.LIBRARY_PATH + "/" + programName;
     }
 
+    public static String getInvoker() {
+        return getNativeFakeProgram("libinvoker.so");
+    }
+
     public static boolean uncpio(File cpio, File outputDir) {
         return uncpio(cpio, outputDir, null);
     }
-
     public static boolean uncpio(File cpio, File outputDir, ShellUtils.Result result) {
         outputDir.mkdirs();
         List<String> cmds = new ArrayList<String>();
         cmds.add(String.format("cd \'%s\'", cpio.getParent()));
-        cmds.add(String.format("%s uncpio -c \'%s\' -o \'%s\'", getNativeFakeProgram("libinvoker.so"), cpio.getPath(), outputDir.getName()));
+        cmds.add(String.format("%s uncpio -c \'%s\' -o \'%s\'", getInvoker(), cpio.getPath(), outputDir.getName()));
         return ShellUtils.exec(cmds, result, false) == 0;
     }
 
@@ -119,7 +149,7 @@ public class Invoker {
     public static boolean mkcpio(File cpioList, File outputFile, ShellUtils.Result result) {
         List<String> cmds = new ArrayList<String>();
         cmds.add(String.format("cd \'%s\'", cpioList.getParent()));
-        cmds.add(String.format("%s mkcpio \'%s\' \'%s\'", getNativeFakeProgram("libinvoker.so"), cpioList.getPath(), outputFile.getPath()));
+        cmds.add(String.format("%s mkcpio \'%s\' \'%s\'", getInvoker(), cpioList.getPath(), outputFile.getPath()));
         return ShellUtils.exec(cmds, result, false) == 0;
     }
 
@@ -129,7 +159,8 @@ public class Invoker {
 
     // sdat2img <system.transfer.list> <system.new.dat> <system.ext4.img>
     public static boolean sdat2img(File transferList, File datFile, File outputFile, ShellUtils.Result result) {
-        String cmd = String.format("%s sdat2img \'%s\' \'%s\' \'%s\'", getNativeFakeProgram("libinvoker.so"), transferList.getPath(), datFile.getPath(), outputFile.getPath());
+        String cmd = String.format("%s sdat2img \'%s\' \'%s\' \'%s\'", getInvoker(), transferList.getPath(), datFile.getPath(), outputFile.getPath());
         return ShellUtils.exec(cmd, result, false) == 0;
     }
+
 }

@@ -3,8 +3,8 @@ package crixec.app.imagefactory.fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Process;
-import android.support.v14.preference.PreferenceFragment;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
 import crixec.app.imagefactory.R;
 import crixec.app.imagefactory.core.ImageFactory;
@@ -17,7 +17,8 @@ import crixec.app.imagefactory.util.XmlDataUtils;
 /**
  * Created by Crixec on 2016/8/12.
  */
-public class SettingFragment extends PreferenceFragment {
+public class SettingFragment extends PreferenceFragmentCompat {
+
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.setting);
@@ -36,7 +37,7 @@ public class SettingFragment extends PreferenceFragment {
                                 // TODO: Implement this method
                                 XmlDataUtils.remove(getString(R.string.setting_data_path_key));
                                 try {
-                                    ShellUtils.exec(String.format("%s rm -r \'%s\' \'%s\' \'%s\'", Toolbox.getToolbox(), ImageFactory.DATA_PATH.getPath(), ImageFactory.getApp().getFilesDir().getPath(), ImageFactory.getApp().getApplicationInfo().nativeLibraryDir));
+                                    ShellUtils.exec(String.format("rm -r \'%s\' \'%s\' \'%s\'",ImageFactory.DATA_PATH.getPath(), ImageFactory.getApp().getFilesDir().getPath(), ImageFactory.getApp().getApplicationInfo().nativeLibraryDir));
                                     android.os.Process.killProcess(Process.myPid());
                                 } catch (Exception e) {
                                     Toast.makeShortText(String.format(getString(R.string.operation_failed), e.toString()));
