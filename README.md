@@ -97,8 +97,8 @@ Email : crixec@gmail.com 79236107@qq.com
 * [ImageFactory_2.2.3.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.3.apk)
 * [ImageFactory_2.2.4.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.4.apk)
 * [ImageFactory_2.2.5.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.5.apk)
-* [ImageFactory_2.3.6.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.6.apk)
-* [ImageFactory_2.4.7.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.6.apk)
+* [ImageFactory_2.3.6.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.3.6.apk)
+* [ImageFactory_2.4.7.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.4.7.apk)
 
 # QQ 群
 * [68641685](http://jq.qq.com/?_wv=1027&k=2CICcTp)
