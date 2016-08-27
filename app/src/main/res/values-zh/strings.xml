@@ -111,7 +111,7 @@
     <string name="terminal">控制台输出</string>
     <string name="uid">用户 ID</string>
     <string name="unpack_boot_image_output_folder_name">解包后输出目录名称</string>
-    <string name="unpack_boot_image_source_file_path">用来解包的 boo/recovery</string>
+    <string name="unpack_boot_image_source_file_path">用来解包的 boot/recovery</string>
     <string name="unpacked_ramdisk_to_folder">解包 ramdisk 到 ：\'%s\'</string>
     <string name="unpacked_to_folder">解包到目录 : \'%s\'</string>
     <string name="unpacking">解包中</string>

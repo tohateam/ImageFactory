@@ -2,9 +2,20 @@
 # 什么是镜像工厂？
 ```
 镜像工厂这是一个安卓发烧友适合的工具，此应用程序大部分功能不需要ROOT权限！需要ROOT权限的功能很危险，请不要很轻易或者不了解如何正确操作就使用这个工具，你最起码需要了解Android（ROOT，BOOT,RECOVERY等）才能更好的使用这个工具。这个工具可以刷写或者备份BOOT/RECOERY，当然也可以解包或者打包BOOT/RECOVERY，也可以解压华为的官方固件，也可以进行安卓各种镜像文件的操作：simg2img img2simg sdat2img。应用里也有各种重启功能，重启到RECOVERY、Bootloader、热重启，一切操作尽在指尖。
+项目已开源到：https://github.com/Crixec/ImageFactory
+
 ```
 # 更新日志
 ```
+
+版本名称：2.4.7
+版本号：12
+更新日期：20160827
+
+1、修复严重的内存泄漏
+2、修复华为固件解包失败
+3、修复栈过界造成的打包BOOT/RECOVERY失败
+
 
 版本名称：2.3.6
 版本号：11
@@ -17,6 +28,7 @@
 5、新增cpio.list编辑器（从外部打开调用）
 6、项目已开源到：https://github.com/Crixec/ImageFactory
 7、调整算法，减少内存占用
+
 
 版本名称：2.2.2-2.2.3-2.2.4-2.2.5
 版本号：7-8-9-10
@@ -69,7 +81,6 @@
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/splash.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/main_page_1.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/main_page_2.png)
-![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/drawer.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/about.png)
 
 # 联系作者
@@ -86,7 +97,8 @@ Email : crixec@gmail.com 79236107@qq.com
 * [ImageFactory_2.2.3.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.3.apk)
 * [ImageFactory_2.2.4.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.4.apk)
 * [ImageFactory_2.2.5.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.5.apk)
-* [ImageFactory_2.2.6.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.6.apk)
+* [ImageFactory_2.3.6.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.6.apk)
+* [ImageFactory_2.4.7.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.6.apk)
 
 # QQ 群
 * [68641685](http://jq.qq.com/?_wv=1027&k=2CICcTp)
