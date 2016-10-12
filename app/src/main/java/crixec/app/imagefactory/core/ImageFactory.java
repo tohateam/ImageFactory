@@ -18,7 +18,6 @@ public class ImageFactory extends Application {
         // TODO: Implement this method
         super.onCreate();
         APP = this;
-        new AppLoader().start();
     }
 
     public static Context getApp() {

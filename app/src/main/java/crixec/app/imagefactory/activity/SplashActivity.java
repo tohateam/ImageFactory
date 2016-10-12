@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 
 import crixec.app.imagefactory.R;
+import crixec.app.imagefactory.core.AppLoader;
 import crixec.app.imagefactory.core.Debug;
 import crixec.app.imagefactory.ui.Dialog;
 
@@ -55,8 +56,14 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void openApp() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        new AppLoader().start();
+        new Handler(getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+            }
+        }, 500);
     }
 
     @Override

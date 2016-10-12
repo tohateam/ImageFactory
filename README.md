@@ -7,14 +7,19 @@
 ```
 # 更新日志
 ```
+版本名称：2.5.8
+版本号：13
+更新日期：20161012
+
+1、修复Marshmallow+(6.0+) FC
+
 
 版本名称：2.4.7
 版本号：12
 更新日期：20160827
 
 1、修复严重的内存泄漏
-2、修复华为固件解包失败
-3、修复栈过界造成的打包BOOT/RECOVERY失败
+2、修复栈过界造成的打包BOOT/RECOVERY失败
 
 
 版本名称：2.3.6
@@ -81,7 +86,6 @@
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/splash.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/main_page_1.png)
 ![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/main_page_2.png)
-![Screenshot](https://raw.githubusercontent.com/Crixec/ImageFactory/master/Screenshots/about.png)
 
 # 联系作者
 ```
@@ -99,6 +103,6 @@ Email : crixec@gmail.com 79236107@qq.com
 * [ImageFactory_2.2.5.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.2.5.apk)
 * [ImageFactory_2.3.6.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.3.6.apk)
 * [ImageFactory_2.4.7.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.4.7.apk)
-
+* [ImageFactory_2.5.8.apk](https://github.com/Crixec/ImageFactory/blob/master/app/ImageFactory_2.5.8.apk)
 # QQ 群
 * [68641685](http://jq.qq.com/?_wv=1027&k=2CICcTp)
